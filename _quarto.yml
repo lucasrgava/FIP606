@@ -10,7 +10,7 @@ execute:
 website:
   title: "FIP6062"
   favicon: img/favicon_site.png
-  image: img/nivia.png
+  image: img/lucas.jpg
   
   navbar:
     pinned: true
@@ -64,13 +64,13 @@ website:
   
     right: 
      - icon: github
-       href: https://github.com/niviampereira
+       href: https://github.com/lucasrgava
      - icon: instagram
-       href: https://www.instagram.com/oxenivia/
+       href: https://www.instagram.com/lucasrgava/
 
   page-navigation: true
   page-footer: 
-    center: "Copyright 2023, Nívia Maria Pereira"
+    center: "Copyright 2024, Lucas Romão Gava"
     background: light
 
 format:
