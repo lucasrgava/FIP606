@@ -1,0 +1,18 @@
+"0","df1 <- multi_isolate # Banco de dados do pacote ec50estimator"
+"0","df2 <- read_excel(""dados-diversos.xlsx"") # Pacote readxl"
+"0","df21 <- read_excel(""dados-diversos.xlsx"", sheet = 2) # Pacote readxl"
+"0","df3 <- read_csv(""dados-diversos.csv"") # Pacote readr"
+"1","[1mRows: [22m[34m60[39m [1mColumns: [22m[34m4[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (1): Irrigation
+[32mdbl[39m (3): rep, day, severity
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","df4 <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1aID5Dh6PlBVCKzU1j7k-WA6zuWQWE2NhtWEgdJtt5iA/edit#gid=921203844') # Pacote gsheet"
+"2","Error in open.connection(3L, ""rb"") : HTTP error 404.
+"

@@ -1,0 +1,126 @@
+---
+title: "Aula 11"
+format: html
+editor: visual
+---
+
+# Construção de mapas
+
+Utilizando o pacote ggplot2 e o pacote leaflet.
+
+Seguiremos, a partir de agora, com foco na criação de mapas utilizando o **RStudio**.
+
+## Instação de pacotes
+
+Instalando os pacotes **rnaturalearthhires** e **rnaturalearth**.
+
+```{r}
+# remotes::install_github("ropensci/rnaturalearthhires")
+# install.packages('rnaturalearthhires', repos = 'http://packages.ropensci.org', type = "source")
+# install.packages('rnaturalearth')
+```
+
+# Pacotes
+
+Pacotes que serão utilizados no decorrer dos códigos.
+
+```{r, warning=FALSE}
+library(gsheet) # para importação de dados da web
+library(tidyverse) # para manipulação de dados
+library(rnaturalearthhires) # para criação de mapas
+library(rnaturalearth) # para criação de mapas
+library(ggthemes) # mais temas gráficos
+library(ggspatial) # inserir rosa dos ventos
+library(plotly) # para gráfico interativo
+library(leaflet) # mapa igual ao google maps
+library(r4pde) # para acessar o banco de dados
+library(scatterpie) # criar os gráficos de pizzas em cada ponto
+library(ggrepel) # colocar nome em cima do ponto
+```
+
+# Banco de dados
+
+O banco de dados a seguir, é referente a locais de ocorrência de epidemias de ferrugem da soja.
+
+Utilizando o código abaixo, é possível selecionar os limites de região de interesse, seja estado, país, entre outros. No nosso caso, selecionamos os limites dos estados do Brasil, que coincidem os pontos do nosso banco de dados. Sobrepondo essas camadas, de pontos e limites estaduais, podemos ver as ocorrências no Brasil.
+
+```{r}
+BRA <- ne_states(country = "Brazil", returnclass = "sf")
+MG <- BRA |> 
+  filter(name_en == 'Minas Gerais')
+
+sbr <- RustSoybean # banco de dados do pacote r4pde
+
+sbr |> 
+  ggplot(aes(longitude, latitude))+
+  geom_point()+
+  coord_sf()
+
+bra <- ggplot(BRA) +
+  geom_sf(fill = 'lightgray', color = 'darkgray', linewidth = 0.5)+
+  geom_sf(data = MG, fill = 'darkgray') +
+  geom_point(data = sbr, aes(longitude, latitude),
+             color = 'darkgreen', alpha = 0.7, size = 2) +
+  theme_map() +
+  annotation_north_arrow(which_north = 'grid')
+
+bra
+
+
+```
+
+A função `ggplotly()` do pacote **plotly** permite tornar os gráficos gerados no **ggplot2** dinâmicos e interativos, veja:
+
+```{r}
+ggplotly(bra) ## criando gráfico interativo
+```
+
+## Mapas iguais ao do Google maps!
+
+Criando um gráfico interativo igual ao google maps e inserindo pontos. A função `leaflet()` identifica automaticamente dentro do banco de tados **sbr** as colunas nomeadas com **latitude** e **longitude** não precisando identificar quais são. A função **addCircleMarkers()** insere os pontos de acordo com as coordenadas. O grafico gerado também é interativo.
+
+```{r}
+leaflet(sbr) |> 
+  addTiles() |> 
+  #setView(lng = -42.8825, lat = -20.7546, zoom = 5) |> 
+  addCircleMarkers(radius = 1)
+```
+
+Testando outras camadas:
+
+```{r}
+leaflet() |> 
+  addProviderTiles(providers$Esri.NatGeoWorldMap) |> 
+  setView(lng = -42.8825, lat = -20.7546, zoom = 5)
+```
+
+## Outro mapa
+
+Mapa do Brasil com distribuição das doenças e presença de cada uma na forma de gráfico de pizza. Os gráficos de pizzas não representam de forma proporcional as ocorrências das doenças, mas sim, a presença.
+
+```{r, warning=FALSE}
+
+mapa <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1pAIFKsdKxk_UQQXdYwIO-O5NOkYNhpclImJcLziYnk4/edit?usp=sharing ')
+
+
+Bra_2 <- ggplot(BRA) +
+  geom_sf(fill = "white", color = "black", linewidth = 0.5) +
+  coord_sf()+
+  geom_scatterpie(aes(x = lon, y = lat, r = 0.6),
+                  alpha = 0.8, color = NA, data = mapa,
+                  cols = c ("DFC",
+                            "MA",
+                            "FER",
+                            "ANTR",
+                            "OIDIO"))+
+  geom_text_repel(data = mapa, aes(lon, lat, label = Local),
+                  size = 2, nudge_x = 0.2, nudge_y = 0.27, color = 'gray30', family = "Arial")+
+  ggthemes::scale_fill_calc()+
+  ggthemes::theme_map()+
+  labs(x = "Longitude", y = "Laititude", legend = " ", fill = "Doença")+
+  theme(legend.position = "bottom", text = element_text(family = "Arieal", size = 8))
+
+Bra_2
+```
+
+As possibilidades de criação de mapas, utilizando o **RStudio,** são muitas. Basta uma boa criatividade para utilização dos recursos e mãos a obra!

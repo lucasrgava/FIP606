@@ -1,0 +1,145 @@
+---
+title: "Aula 1"
+format: html
+editor: visual
+---
+
+# Criando um projeto
+
+Antes de começarmos a desenvolver códigos com foco em análise de dados, vamos iniciar criando um projeto, em R, para que nossos arquivos fiquem salvos e organizados. Para isso, após a instalação dos Softwares **R** e RStudio, abra o **RStudio** e siga os passos:
+
+## 1° passo
+
+Conforme a figura, cliqle no botão "Create a project":
+
+![Fonte: O autor.](Prints/criando%20um%20projeto.png){fig-align="center" width="200"}
+
+## 2° passo
+
+Na janela que se abrir, clique na opção "New Directory":
+
+![Fonte: O autor.](Prints/Imagem4.png){fig-align="center" width="400"}
+
+## 3° passo
+
+Na nova janela clique em "New Project"
+
+![Fonte: O autor.](Prints/Imagem5.png){fig-align="center" width="400"}
+
+## 4° passo
+
+Defina o diretório e clique em 'Creat Project". Pronto! Seu diretório foi criado. Agora, toda vez que for desenvolver algum código, de um trabalho espefico, salve nesta pasta.
+
+![Fonte: O autor.](Prints/Imagem6.png){fig-align="center" width="400"}
+
+## 5° passo
+
+Agora, vá ao diretório que salvou o projeto e clique no arquivo ".Rproj". Faça isso toda vez que for trabalhar nele. Ao clicar no arquivo do projeto, o ambiente do RStudio será aberto, clique em "New File" \> "Quarto Document". Defina título e autor e clique em "Create".
+
+![Fonte: O autor.](Prints/Imagem3.png){fig-align="center" width="200"}
+
+Você acabou de criar um arquivo .qmd e em sua janela terá algo assim:
+
+![Fonte: O autor.](Prints/Imagem1.png){fig-align="center" width="664"}
+
+Como se pode perceber, esse tipo de arquivo permite alternar entre escrita e comandos. Essas caixas de comando são chamadas de **chuncks** e são nelas que inserimos os códigos de interesse. Para criar um novo código, use o atalho **ctrl + alt + i**.
+
+# Operações matemáticas
+
+Podemos fazer uma analogia do R como uma calculadora inteligente. Para isso, basta que indiquemos por meio de comandos o que precisa ser feito. Vale resaltar que, se você escrever um comando errado, no melhor dos casos retornará uma mensagem de erro. No entanto, se o código rodar, mas, com um erro que você não percebeu, a resposta estará errada, comprometendo suas decisões. Então, tenham atenção ao digitar comandos. Experimente realizar alguma operações matemáticas:
+
+```{r}
+2 + 2 # adição
+2 - 2 # subtração
+2 / 2 # divisão
+2 * 2 # multiplicação
+2 ^ 2 # exponenciação
+2 ^ (1/2) # raiz quadrada
+```
+
+Observe o resultado das operações. Isso é um exemplo simples e operações mais complexas podem ser realizadas.
+
+# Criando objetos
+
+## Vetores
+
+Até então, o que foi apresentado, de operações matemáticas, uma calculadora simples faz. Vamos agora criar abjetos, como vetores e data.frames.
+
+```{r}
+a <- 2
+b = 2
+```
+
+O sinal de atribuição "\<-" ou "=" utilizado com frequência serve para associar valores a objetos. Como no exemplo acima, o objeto "a" agora vale 2, ou seja, toda vez que chamar este objeto numa operação matemática, será realizado o cálculo com o valor que ele carrega.
+
+```{r}
+a + b
+```
+
+No entanto, o objeto criado poderia conter mais que um único valor. Vamos criar agora um vetor:
+
+```{r}
+b <- c(1, 2, 3, 4, 5)
+b
+```
+
+**ATENÇÂO**: Observe que agora o objeto "b", antes igual a 2, agora contém os valores inteiros de 1 a 5. Isso acontece porque o valor do objeto "b" foi sobrescrito pelo novo vetor. Dessa forma, b = 2, não existe mais.
+
+Operações matemáticas podem ser feitas com esse objeto. Por exemplo, vamos realizar uma operação de multiplicação entre os objetos criados.
+
+```{r}
+a * b
+```
+
+Nesse caso, observe que cada um dos valores contidos em "b" foi multiplicado pelo valor de "a". Esse resultado não foi salvo na memória do R, para isso basta adotar o sinal de atribuição.
+
+```{r}
+d <- a * b
+d
+```
+
+Agora, toda vez que chamar pela variável "d", retornará o valor da multiplicação.
+
+Um vetor também pode carregar informações do tipo caracter:
+
+```{r}
+nomes <- c("Iago", "Klaus", "Mariana", "David", "Gabriel")
+nomes
+```
+
+## Data frames
+
+Data frames são muito úteis para organizar dados, uma vez que estes permitem que as colunas contenham, por exemplo, valores numéricos ou lógicos ou de caracteres.
+
+Utilizando a função `data.frame()`, inserindo os objetos criados, separado-os por vírgula, e atribuindo a um objeto chamado **df**.
+
+```{r}
+df <- data.frame(nomes, b, d)
+df
+```
+
+Em análise de dados, esse tipo de estrutura é muito utilizado e vamos utilizar bastante no decorrer dessa disciplina de análise.
+
+# Carregando pacotes
+
+As vezes existem algumas funções de outros pacotes que não são carregadas automaticamente quando se inicia o R. Nesses casos, é preciso carregar o pacote que contém a função de interesse, para isso usamos a função `library()`.
+
+```{r}
+library(ggplot2) # Carregando funções do pacote ggplot2
+```
+
+Pode acontecer que a função gere um erro no carregamento, provavelmente porque o pacote ainda não foi instalado. Para instalar um pacote basta usar a fução `install.packages()`. Após a instalação, é preciso carregar o novo pacote utilizando a função `library()`.
+
+```{r}
+# install.packages()
+```
+
+# Pedindo ajuda
+
+Quando tiver dúvida sobre como usar alguma função, execute:
+
+```{r}
+?data.frame # ajuda para a função 
+```
+
+Uma janela com informações sobe a função será aberta.

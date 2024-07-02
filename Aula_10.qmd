@@ -1,0 +1,240 @@
+---
+title: "Aula 10"
+format: html
+editor: visual
+---
+
+# Pacotes
+
+```{r message=FALSE, warning=FALSE}
+library(gsheet)
+library(tidyverse)
+library(patchwork)
+library(AgroR)
+library(drc)
+library(ec50estimator)
+```
+
+# Correlação e Coeficiente de determinação
+
+A correlação é uma associação feita entre duas variáveis. Uma correlação muito conhecida é a correlação de Person. O Coeficiente de correlação (r) é a força da associação entre x e y. Os valores de **r** são admensionais e podem variar de -1 a 1. Quando:
+
+-   r = 1 ou r = -1: significa que a que existe forte correlação entre as duas variáveis. O valor negativo significa que existe uma relação inversa entre as variáveis e uma correlação positiva significa que há uma correlação direta, ou seja, a medida que o valor de uma variável aumenta a outra diminui e quando uma aumenta a outra também aumenta, respectivamente;
+
+-   r = 0: significa que não existe correlação entre as variáveis, ou seja, a variação de uma não interfere na variação da outra variável.
+
+Mas não necessariamente os valores de r serão discretos, como apresentado acima, o valor de r é continuo entre os extremos apresentados. Logo, para interpretar esses valores de correlação:
+
+-   **r \> 0,7:** Positivo ou negativo, **CORRELAÇÃO** **FORTE**;
+
+-   **r entre 0,5 e 0,7:** Positivo ou negativo, **CORRELAÇÃO MODERADA**;
+
+-   **r entre 0,3 a 0,5:** Positivo ou negativo, **CORRELAÇÃO FRACA**;
+
+-   **r entre 0 e 0,3:** Positivo ou negativo, **CORRELAÇÃO DESPREZÍVEL**.
+
+O Coeficiente de Determinação (r\^2), varia entre 0 e 1, e retrata o quanto de y é explicado pela variação de x. Seu cálculo é simples e resume-se em elevar o **r** ao quadrado.
+
+## Banco de dados
+
+Os dados se referem a medição de severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diretentes softwares, **Assess**, **LeafDoctor** e **ImageJ**, para determinar tal severidade.
+
+```{r}
+dados <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=373270992')
+```
+
+### Gráfico
+
+Abaixo, seguimos com a eleboração de gráficos de dispersão, comparando duas variáveis e ajustando uma reta.
+
+```{r}
+p1 <- dados |> 
+  ggplot(aes(x = Assess,y = LeafDoctor)) +
+  geom_point(alpha = 0.7, size = 2) + 
+  theme_classic() + 
+  geom_smooth(method = 'lm', se = F, color = 'red') + 
+  labs(y = 'Severidade (%) com Leaf Doctor',
+       x = 'Severidade (%) com Assess')
+p2 <- dados |> 
+  ggplot(aes(x = Assess, y = ImageJ)) +
+  geom_point(alpha = 0.7, size = 2) + 
+  theme_classic() + 
+  geom_smooth(method = 'lm', se = F, color = 'red') + 
+  labs(y = 'Severidade (%) com ImageJ',
+       x = 'Severidade (%) com Assess')
+
+p1 + p2
+```
+
+É perceptível que existe uma correlação positiva entre os softweres confrontados.
+
+### Matriz de correlação
+
+Utilizando a função `corgraph()` do pacote **AgroR** é possível criar uma matriz de correalação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assesa é pago.
+
+```{r}
+imgs <- dados |> 
+  dplyr::select(3:5)
+
+corgraph(imgs)
+cor.test(dados$Assess, dados$LeafDoctor)
+cor.test(dados$Assess, dados$ImageJ)
+```
+
+Outro pacote interessante que que monta uma matriz de correlação é o pacote **corrplot**.
+
+```{r}
+library(corrplot)
+cor_img <- cor(imgs)
+corrplot(cor_img, method = 'square', type = 'lower')
+```
+
+## Banco de dados
+
+Retornamos com banco de dados já utilizados em aulas anteriores. No banco está contido variáveis respostas de produtividade, DFCs e severidade de ferrugem. O código a seguir, calcula a correlação entre as variáveis de doença e a variável produtividade. Já é de conhecimento comum, que, quanto mais uma cultura sofre danos devido ao ataque de doenças há um reflexo negativo na sua produtividade, ou seja, menor produtividade. Logo, com base nos cálculos a seguir, esperamos que as correlações sejam negativas.
+
+```{r}
+campo <- gsheet2tbl("https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=866852711")
+
+campo2 <- campo |> 
+  dplyr::select(DFC, FER, PROD)
+
+corgraph(campo2)
+dfc <- cor.test(campo2$PROD, campo2$DFC)
+fer <- cor.test(campo2$PROD, campo2$FER)
+dfc; fer
+```
+
+De fato, as correlações entre as variáveis doenção versus produtividade foram negativas e moderadas.
+
+O código abaixo, filtra os intervalos de confiança entre as correlações calculadas entre as variáveis de doenças versus produtividade.
+
+```{r}
+dfc$conf.int[1:2]
+fer$conf.int[1:2]
+```
+
+# Modelos Lineares
+
+## Banco de dados
+
+Seguimos com banco de dados de estande de plantas para ajuste de modelos.
+
+```{r}
+estande <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=401662555')
+```
+
+### Gráfico
+
+O gráfico abixo apresenta a dispersão dos dados e duas curvas, uma quadrática e outra linear aos dados. Veja:
+
+```{r}
+estande |> 
+  filter(exp == 2) |> 
+  ggplot(aes(trat, nplants)) +
+  geom_point() + 
+  ylim(0, 100) +
+  geom_smooth(method = 'lm', se = F, formula = y ~ poly(x, 2), color = 'black') +
+  geom_smooth(method = 'lm', se = F) + 
+  theme_classic() + 
+  labs(y = 'Plants number',
+       x = 'Treatments')
+```
+
+### Ajuste de modelo linear de 1° grau
+
+Na função `lm()`, ajustamos um modelo linear de primeira ordem, veja:
+
+```{r}
+exp2 <- estande |> 
+  filter(exp == 2)
+lm2 <-  lm(nplants ~trat, data = exp2)
+summary(lm2)
+hist(residuals(lm2))
+```
+
+### Ajuste de modelo linear de 2° grau
+
+Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo "**+**". Seguimos com um resumo do modelo, utilizando a função `summary()`, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função `AIC()`, É muito útil para comparar diferentes modelos e selecionar o melhor e significa dizer que, quanto menor o valor de AIC, melhor é o modelo.
+
+```{r}
+exp2$trat2 <- exp2$trat^2
+
+lm3 <- lm(nplants ~ trat + trat2, data = exp2)
+summary(lm3)
+AIC(lm3)
+```
+
+A função, `polynomial()`, do pacote **AgroR,** em conjunto com o código abaixo permite plotar a curva ajustada ao grau de interesse, com os pontos e a equação. Veja:
+
+```{r}
+with(exp2, polynomial(trat, nplants, grau = 2)) 
+```
+
+# Modelos Não-lineares
+
+## Banco de dados
+
+O próximo banco de dados que iremos utilizar a seguir, refere-se a dados de sensibilidade a fungicidas.
+
+```{r}
+germinacao <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=465348652')
+```
+
+## Gráfico
+
+```{r}
+germ <- germinacao |> 
+  group_by(code, state, dose) |> 
+  dplyr::select(-replicate) |> 
+  summarise(mean_germ = mean(germination), .groups = 'drop')
+
+germ |> 
+  ggplot(aes(dose, mean_germ)) + 
+  geom_point() +
+  facet_wrap(~code) + 
+  geom_smooth(method = 'lm', se = F, formula = y ~ poly(x, 2))
+```
+
+Sensibilidade a fungicida dos isolados pro estado:
+
+```{r}
+germ |> 
+  ggplot(aes(dose, mean_germ)) + 
+  geom_point() +
+  facet_wrap(~state) + 
+  geom_smooth(method = 'lm', se = F, formula = y ~ poly(x, 2))
+```
+
+## Ajuste do modelo
+
+No código abaixo, utilizamos a dunção `drm()` do pacote **drc**, para ajutar modelos não lineares. O argumento *`fct =`* permite que seja inserido qual modelo não linear seja ajustado. Para mais sobre o uso da função execute o comando no console: `?drm`.
+
+```{r}
+
+isolado.x <- germ |> 
+  filter(code == 152)
+
+drc1 <- drm(mean_germ ~ dose, data = isolado.x, fct = LL.3())
+AIC(drc1)
+plot(drc1)
+ED(drc1, 50, interval = 'delta')
+
+summary(drc1)
+```
+
+## Determinação da EC50
+
+A determinação da EC50 é muito utilizada quando se trabalha com produtos destinados ao manejo de pragas e doenças. Corresponde a concentração do produto capaz de inibir 50%, por exemplo, da população, do desenvolvimento de um fungo, no índice de germinação de esporos.
+
+Um pacote que já possui funções para realizar esses cálculos é o pacote **ec50estimator**, com a função `estimate_EC50()`. Nesse caso, determinou-se a EC50 sobre a germinação de esporos para cada isolado, com ajuste de modelo logístico no argumento *`fct =`*. Com base no resultado coseguimos identificar que o isolado FGT05 foi o mais sensível ao fungicida testado.
+
+```{r}
+df_ec50 <- estimate_EC50(mean_germ ~ dose,
+                         data = germ,
+                         isolate_col = "code",
+                         interval = "delta",
+                         fct = drc ::LL.3())
+df_ec50 |> 
+  arrange(Estimate)
+```

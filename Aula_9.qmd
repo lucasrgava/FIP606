@@ -1,0 +1,303 @@
+---
+title: "Aula 9"
+format: html
+editor: visual
+---
+
+# Pacotes
+
+Carregando pacotes necessários no código.
+
+```{r message=FALSE, warning=FALSE}
+library(gsheet)
+library(tidyverse)
+library(ggthemes)
+library(lme4)
+library(car)
+library(DHARMa)
+library(performance)
+library(r4pde)
+library(broom) # para usar a função 'do()'
+library(patchwork)
+library(emmeans)
+library(multcomp)
+```
+
+# Importando banco de dados
+
+Dados referentes a um ensaio realizado em DBC com parcelas subdividida, em esquema fatorial 6x2 com 4 repetições, totalzando 12 tratamentos. Os níveis do primeiro fator composto pelos híbridos: 30F53 HX; 30F53 YH; 30K64; 30S31H; 30S31YH e BG7049H. Os níveis do segundo fator composto por 2 métodos de inoculação: pin e silk.
+
+```{r}
+dados <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=1345524759')
+```
+
+## Gráfico
+
+```{r}
+dados |> 
+  ggplot(aes(method, index)) +
+  geom_jitter(width = 0.1, alpha = 0.5, color = 'black') + 
+  facet_wrap(~hybrid) + 
+  stat_summary(fun.data = 'mean_cl_boot', color = 'black') + 
+  theme_clean()
+  
+```
+
+## Modelo para subdividida
+
+### Dados índice de doença
+
+```{r}
+dados <-  dados |> 
+  mutate(block = as.factor(block))
+
+mix2 <-  lmer(index ~ hybrid * method + block +(1|block/hybrid),data = dados )
+
+Anova(mix2)
+
+```
+
+### Premissas
+
+Premissa de homogeneidade de variâncias não atendida.
+
+```{r}
+check_heteroscedasticity(mix2)
+check_normality(mix2)
+```
+
+### Trasnformação dos dados
+
+Transformação por raiz quadrada.
+
+```{r}
+mix2 <- lmer(sqrt(index) ~ hybrid*method + block + (1|block/hybrid), data = dados)
+mix2
+
+Anova(mix2)
+```
+
+Premissas atendidas!
+
+```{r}
+check_normality(mix2)
+check_heteroscedasticity(mix2)
+```
+
+### Teste de comparações múltiplas
+
+```{r}
+medias_milho <- emmeans(mix2,
+                        ~ hybrid | method,
+                        type = "response")
+medias_milho
+medias_milho2 <- emmeans(mix2,
+                         ~ method | hybrid,
+                         type = "response")
+medias_milho2
+
+cld(medias_milho2, Letters = letters)
+```
+
+## Dados de produtividade
+
+### Modelo e ANOVA
+
+```{r}
+mix3 <- lmer(sqrt(yield) ~ hybrid*method + block + (1|block/hybrid), data = dados)
+
+Anova(mix3)
+```
+
+### Premissas
+
+Premissas OK!
+
+```{r}
+check_normality(mix3)
+check_heteroscedasticity(mix3)
+```
+
+### Teste de comparações múltiplas
+
+```{r}
+cld(emmeans(mix3, ~ hybrid | method,
+                    type = "response"), Letters = letters)
+```
+
+# Dados
+
+Banco de dados referente a 3 experimentos onde se avaliaram o estande de plantas ao longo do tempo. Os ensaios foram conduzidos em DBC com 4 repetições.
+
+```{r}
+dados <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=401662555')
+```
+
+# Gráfico
+
+```{r}
+dados |> 
+  ggplot(aes(trat, nplants)) +
+  geom_jitter(alpha = 0.5) +
+  geom_smooth(method = 'lm', se = F) +
+  stat_summary(fun.data = 'mean_cl_boot', color = 'black') +
+  facet_wrap(~ exp) +
+  labs(x = 'Dias', y = 'Estande de plantas')
+```
+
+## Dados do experimento 1
+
+### Gráfico
+
+```{r}
+exp1 <-  dados |> 
+  filter(exp == 1)
+
+exp1 |> 
+  ggplot(aes(x = trat, y = nplants)) +
+  geom_point() + 
+  geom_smooth(method = 'lm', se = F)+
+  labs(x = 'Dias', y = 'Estande de plantas')
+```
+
+### Ajuste da regressão
+
+A regressão explica pouco a variação dos dados, visto que o coeficiente de determinação foi muito baixo.
+
+```{r}
+lm1 <- lm(nplants ~ trat, 
+          data = exp1)
+
+summary(lm1)
+```
+
+## Dados do experimento 2
+
+### Gráfico
+
+```{r}
+exp2 <-  dados |> 
+  filter(exp == 2)
+
+exp2 |> 
+  ggplot(aes(x = trat, y = nplants)) +
+  geom_point() + 
+  geom_smooth(method = 'lm', se = F)+
+  labs(x = 'Dias', y = 'Estande de plantas')
+```
+
+### Ajuste da regressão
+
+O coeficiente de determinação também foi baixo.
+
+```{r}
+lm2 <- lm(nplants ~ trat, 
+          data = exp2)
+
+summary(lm2)
+```
+
+# Dados do experimento 3
+
+### Gráfico
+
+```{r}
+exp3 <-  dados |> 
+  filter(exp == 3)
+
+exp3 |> 
+  ggplot(aes(x = trat, y = nplants)) +
+  geom_point() + 
+  geom_smooth(method = 'lm', se = F)
+```
+
+### Ajuste do modelo
+
+O coeficiente de determinação nesse caso foi um pouco maior. No entanto, não é considerado alto, visto que foi de 0,6.
+
+```{r}
+lm3 <- lm(nplants ~ trat, 
+          data = exp3)
+
+summary(lm3)
+```
+
+### GLMs
+
+Ajustando dois modelos lineares generalizados e testando o ajuste em função do tipo de distribuição dos dados informados na função `glm()`. Para selecionar o melhor modelo, além de considerar o valor do coeficiente de determinação, levou-se em conta o do critério de Akaike. A Função `AIC()` do pacote **stats**, calcula esse valor. A interpretação é que quanto menor o valor de AIC, melhor. Abaixo, foi ajustados dois modelos aos dados do experimento 2. Os modelos **glm2** e **glm2b** tiveram valores de AIC de 194,95 e 210,23, respectivamente. Logo, o primeiro modelo foi o que melhor se ajustou aos dados.
+
+```{r}
+glm2 <- glm(nplants ~ trat, family = 'gaussian', data = exp2)
+
+summary(glm2)
+
+AIC(glm2) # quanto menor, melhor
+
+glm2b <-  glm(nplants ~ trat, family = 'poisson', data = exp2)
+
+summary(glm2b)
+AIC(glm2b)
+```
+
+# Dados: Mofo branco da soja
+
+## Gráfico de dispesão
+
+```{r}
+
+wm <- WhiteMoldSoybean
+
+wm |> 
+  ggplot(aes(inc, yld)) +
+  geom_point() +
+  #facet_wrap(~ study) +
+  theme_minimal() +
+  geom_smooth(method = 'lm', se = T) +
+  labs(x = 'Incidência', y = ' Produtividade (kg/ha)')
+```
+
+## Ajuste do modelo
+
+```{r}
+mofo1 <-  lm(yld ~ inc, data = wm)
+summary(mofo1)
+```
+
+```{r}
+fit_all <- wm |> 
+  group_by(study) |> 
+  do(tidy(lm(.$yld ~ .$inc), conf.int = T))
+fit_all
+```
+
+```{r}
+fit_all.interc <- fit_all |> 
+  filter(term == "(Intercept)")
+
+p1 <- fit_all.interc |> 
+  ggplot(aes(x = estimate)) +
+  geom_histogram(bins = 8, color = 'white') +
+  theme_clean() +
+  labs(x = 'Intercept')
+
+fit_all.inc <- fit_all |> 
+  filter(term == ".$inc")
+
+p2 <- fit_all.inc |> 
+  ggplot(aes(x = estimate)) +
+  geom_histogram(bins = 8, color = 'white') +
+  theme_clean() +
+  labs(x = 'Incidence')
+
+
+p1 + p2
+```
+
+```{r}
+mofo3 <-  lmer(yld ~ inc + (inc|study), data = wm, REML = F)
+
+summary(mofo3)
+Anova(mofo3) # para obter o valor p
+
+confint(mofo3, method = 'Wald') # para o calcular o IC
+```
