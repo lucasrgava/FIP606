@@ -226,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#dados-índice-de-doença" id="toc-dados-índice-de-doença" class="nav-link" data-scroll-target="#dados-índice-de-doença">Dados índice de doença</a></li>
   <li><a href="#premissas" id="toc-premissas" class="nav-link" data-scroll-target="#premissas">Premissas</a></li>
-  <li><a href="#trasnformação-dos-dados" id="toc-trasnformação-dos-dados" class="nav-link" data-scroll-target="#trasnformação-dos-dados">Trasnformação dos dados</a></li>
+  <li><a href="#transformação-dos-dados" id="toc-transformação-dos-dados" class="nav-link" data-scroll-target="#transformação-dos-dados">Transformação dos dados</a></li>
   <li><a href="#teste-de-comparações-múltiplas" id="toc-teste-de-comparações-múltiplas" class="nav-link" data-scroll-target="#teste-de-comparações-múltiplas">Teste de comparações múltiplas</a></li>
   </ul></li>
   <li><a href="#dados-de-produtividade" id="toc-dados-de-produtividade" class="nav-link" data-scroll-target="#dados-de-produtividade">Dados de produtividade</a>
@@ -258,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#dados-mofo-branco-da-soja" id="toc-dados-mofo-branco-da-soja" class="nav-link" data-scroll-target="#dados-mofo-branco-da-soja">Dados: Mofo branco da soja</a>
   <ul class="collapse">
-  <li><a href="#gráfico-de-dispesão" id="toc-gráfico-de-dispesão" class="nav-link" data-scroll-target="#gráfico-de-dispesão">Gráfico de dispesão</a></li>
+  <li><a href="#gráfico-de-dispersão" id="toc-gráfico-de-dispersão" class="nav-link" data-scroll-target="#gráfico-de-dispersão">Gráfico de dispersão</a></li>
   <li><a href="#ajuste-do-modelo-1" id="toc-ajuste-do-modelo-1" class="nav-link" data-scroll-target="#ajuste-do-modelo-1">Ajuste do modelo</a></li>
   </ul></li>
   </ul>
@@ -306,7 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="importando-banco-de-dados" class="level1">
 <h1>Importando banco de dados</h1>
-<p>Dados referentes a um ensaio realizado em DBC com parcelas subdividida, em esquema fatorial 6x2 com 4 repetições, totalzando 12 tratamentos. Os níveis do primeiro fator composto pelos híbridos: 30F53 HX; 30F53 YH; 30K64; 30S31H; 30S31YH e BG7049H. Os níveis do segundo fator composto por 2 métodos de inoculação: pin e silk.</p>
+<p>Dados referentes a um ensaio realizado em DBC com parcelas subdividida, em esquema fatorial 6x2 com 4 repetições, totalizando 12 tratamentos. Os níveis do primeiro fator composto pelos híbridos: 30F53 HX; 30F53 YH; 30K64; 30S31H; 30S31YH e BG7049H. Os níveis do segundo fator composto por 2 métodos de inoculação: pin e silk.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">gsheet2tbl</span>(<span class="st">'https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=1345524759'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -367,8 +367,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </section>
-<section id="trasnformação-dos-dados" class="level3">
-<h3 class="anchored" data-anchor-id="trasnformação-dos-dados">Trasnformação dos dados</h3>
+<section id="transformação-dos-dados" class="level3">
+<h3 class="anchored" data-anchor-id="transformação-dos-dados">Transformação dos dados</h3>
 <p>Transformação por raiz quadrada.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mix2 <span class="ot">&lt;-</span> <span class="fu">lmer</span>(<span class="fu">sqrt</span>(index) <span class="sc">~</span> hybrid<span class="sc">*</span>method <span class="sc">+</span> block <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>block<span class="sc">/</span>hybrid), <span class="at">data =</span> dados)</span>
@@ -816,7 +816,7 @@ F-statistic: 34.19 on 1 and 22 DF,  p-value: 6.968e-06</code></pre>
 </section>
 <section id="glms" class="level3">
 <h3 class="anchored" data-anchor-id="glms">GLMs</h3>
-<p>Ajustando dois modelos lineares generalizados e testando o ajuste em função do tipo de distribuição dos dados informados na função <code>glm()</code>. Para selecionar o melhor modelo, além de considerar o valor do coeficiente de determinação, levou-se em conta o do critério de Akaike. A Função <code>AIC()</code> do pacote <strong>stats</strong>, calcula esse valor. A interpretação é que quanto menor o valor de AIC, melhor. Abaixo, foi ajustados dois modelos aos dados do experimento 2. Os modelos <strong>glm2</strong> e <strong>glm2b</strong> tiveram valores de AIC de 194,95 e 210,23, respectivamente. Logo, o primeiro modelo foi o que melhor se ajustou aos dados.</p>
+<p>Ajustando dois modelos lineares generalizados e testando o ajuste em função do tipo de distribuição dos dados informados na função <code>glm()</code>. Para selecionar o melhor modelo, além de considerar o valor do coeficiente de determinação, levou-se em conta o do critério de Akaike. A função <code>AIC()</code> do pacote <strong>stats</strong>, calcula esse valor. A interpretação é que quanto menor o valor de AIC, melhor. Abaixo, foi ajustado dois modelos aos dados do experimento 2. Os modelos <strong>glm2</strong> e <strong>glm2b</strong> tiveram valores de AIC de 194,95 e 210,23, respectivamente. Logo, o primeiro modelo foi o que melhor se ajustou aos dados.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>glm2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(nplants <span class="sc">~</span> trat, <span class="at">family =</span> <span class="st">'gaussian'</span>, <span class="at">data =</span> exp2)</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -877,8 +877,8 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </section>
 <section id="dados-mofo-branco-da-soja" class="level1">
 <h1>Dados: Mofo branco da soja</h1>
-<section id="gráfico-de-dispesão" class="level2">
-<h2 class="anchored" data-anchor-id="gráfico-de-dispesão">Gráfico de dispesão</h2>
+<section id="gráfico-de-dispersão" class="level2">
+<h2 class="anchored" data-anchor-id="gráfico-de-dispersão">Gráfico de dispersão</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>wm <span class="ot">&lt;-</span> WhiteMoldSoybean</span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a></span>

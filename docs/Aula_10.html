@@ -284,10 +284,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Correlação e Coeficiente de determinação</h1>
 <p>A correlação é uma associação feita entre duas variáveis. Uma correlação muito conhecida é a correlação de Person. O Coeficiente de correlação (r) é a força da associação entre x e y. Os valores de <strong>r</strong> são admensionais e podem variar de -1 a 1. Quando:</p>
 <ul>
-<li><p>r = 1 ou r = -1: significa que a que existe forte correlação entre as duas variáveis. O valor negativo significa que existe uma relação inversa entre as variáveis e uma correlação positiva significa que há uma correlação direta, ou seja, a medida que o valor de uma variável aumenta a outra diminui e quando uma aumenta a outra também aumenta, respectivamente;</p></li>
+<li><p>r = 1 ou r = -1: significa que existe forte correlação entre as duas variáveis. O valor negativo significa que existe uma relação inversa entre as variáveis e uma correlação positiva significa que há uma correlação direta, ou seja, a medida que o valor de uma variável aumenta a outra diminui e quando uma aumenta a outra também aumenta, respectivamente;</p></li>
 <li><p>r = 0: significa que não existe correlação entre as variáveis, ou seja, a variação de uma não interfere na variação da outra variável.</p></li>
 </ul>
-<p>Mas não necessariamente os valores de r serão discretos, como apresentado acima, o valor de r é continuo entre os extremos apresentados. Logo, para interpretar esses valores de correlação:</p>
+<p>Mas não necessariamente os valores de r serão discretos, como apresentado acima, o valor de r é contínuo entre os extremos apresentados. Logo, para interpretar esses valores de correlação:</p>
 <ul>
 <li><p><strong>r &gt; 0,7:</strong> Positivo ou negativo, <strong>CORRELAÇÃO</strong> <strong>FORTE</strong>;</p></li>
 <li><p><strong>r entre 0,5 e 0,7:</strong> Positivo ou negativo, <strong>CORRELAÇÃO MODERADA</strong>;</p></li>
@@ -297,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>O Coeficiente de Determinação (r^2), varia entre 0 e 1, e retrata o quanto de y é explicado pela variação de x. Seu cálculo é simples e resume-se em elevar o <strong>r</strong> ao quadrado.</p>
 <section id="banco-de-dados" class="level2">
 <h2 class="anchored" data-anchor-id="banco-de-dados">Banco de dados</h2>
-<p>Os dados se referem a medição de severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diretentes softwares, <strong>Assess</strong>, <strong>LeafDoctor</strong> e <strong>ImageJ</strong>, para determinar tal severidade.</p>
+<p>Os dados se referem a medição da severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diretentes softwares, <strong>Assess</strong>, <strong>LeafDoctor</strong> e <strong>ImageJ</strong>, para determinar tal severidade.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">gsheet2tbl</span>(<span class="st">'https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=373270992'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="matriz-de-correlação" class="level3">
 <h3 class="anchored" data-anchor-id="matriz-de-correlação">Matriz de correlação</h3>
-<p>Utilizando a função <code>corgraph()</code> do pacote <strong>AgroR</strong> é possível criar uma matriz de correalação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assesa é pago.</p>
+<p>Utilizando a função <code>corgraph()</code> do pacote <strong>AgroR</strong> é possível criar uma matriz de correalação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assess é pago.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imgs <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>)</span>
@@ -385,7 +385,7 @@ sample estimates:
 0.9776918 </code></pre>
 </div>
 </div>
-<p>Outro pacote interessante que que monta uma matriz de correlação é o pacote <strong>corrplot</strong>.</p>
+<p>Outro pacote interessante que monta uma matriz de correlação é o pacote <strong>corrplot</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -408,7 +408,7 @@ sample estimates:
 </section>
 <section id="banco-de-dados-1" class="level2">
 <h2 class="anchored" data-anchor-id="banco-de-dados-1">Banco de dados</h2>
-<p>Retornamos com banco de dados já utilizados em aulas anteriores. No banco está contido variáveis respostas de produtividade, DFCs e severidade de ferrugem. O código a seguir, calcula a correlação entre as variáveis de doença e a variável produtividade. Já é de conhecimento comum, que, quanto mais uma cultura sofre danos devido ao ataque de doenças há um reflexo negativo na sua produtividade, ou seja, menor produtividade. Logo, com base nos cálculos a seguir, esperamos que as correlações sejam negativas.</p>
+<p>Retornamos com banco de dados já utilizados em aulas anteriores. No banco, está contido variáveis respostas de produtividade, DFCs e severidade de ferrugem. O código a seguir, calcula a correlação entre as variáveis de doença e a variável produtividade. Já é de conhecimento comum, que, quanto mais uma cultura sofre danos devido ao ataque de doenças há um reflexo negativo na sua produtividade, ou seja, menor produtividade. Logo, com base nos cálculos a seguir, esperamos que as correlações sejam negativas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>campo <span class="ot">&lt;-</span> <span class="fu">gsheet2tbl</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=866852711"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -483,7 +483,7 @@ sample estimates:
 </div>
 <section id="gráfico-1" class="level3">
 <h3 class="anchored" data-anchor-id="gráfico-1">Gráfico</h3>
-<p>O gráfico abixo apresenta a dispersão dos dados e duas curvas, uma quadrática e outra linear aos dados. Veja:</p>
+<p>O gráfico abaixo, apresenta a dispersão dos dados e duas curvas, uma quadrática e outra linear aos dados. Veja:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>estande <span class="sc">|&gt;</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(exp <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span> </span>
@@ -547,7 +547,7 @@ F-statistic: 19.05 on 1 and 22 DF,  p-value: 0.0002473</code></pre>
 </section>
 <section id="ajuste-de-modelo-linear-de-2-grau" class="level3">
 <h3 class="anchored" data-anchor-id="ajuste-de-modelo-linear-de-2-grau">Ajuste de modelo linear de 2° grau</h3>
-<p>Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo “<strong>+</strong>”. Seguimos com um resumo do modelo, utilizando a função <code>summary()</code>, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função <code>AIC()</code>, É muito útil para comparar diferentes modelos e selecionar o melhor e significa dizer que, quanto menor o valor de AIC, melhor é o modelo.</p>
+<p>Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo “<strong>+</strong>”. Seguimos com um resumo do modelo, utilizando a função <code>summary()</code>, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função <code>AIC()</code>, É muito útil para comparar diferentes modelos e selecionar o melhor. Significa dizer que, quanto menor o valor de AIC, melhor é o modelo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>exp2<span class="sc">$</span>trat2 <span class="ot">&lt;-</span> exp2<span class="sc">$</span>trat<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -645,7 +645,7 @@ Residual  18 2636.2500  146.4583                       </code></pre>
 </div>
 </div>
 </div>
-<p>Sensibilidade a fungicida dos isolados pro estado:</p>
+<p>Sensibilidade a fungicida dos isolados por estado:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>germ <span class="sc">|&gt;</span> </span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(dose, mean_germ)) <span class="sc">+</span> </span>
@@ -711,8 +711,8 @@ Residual standard error:
 </section>
 <section id="determinação-da-ec50" class="level2">
 <h2 class="anchored" data-anchor-id="determinação-da-ec50">Determinação da EC50</h2>
-<p>A determinação da EC50 é muito utilizada quando se trabalha com produtos destinados ao manejo de pragas e doenças. Corresponde a concentração do produto capaz de inibir 50%, por exemplo, da população, do desenvolvimento de um fungo, no índice de germinação de esporos.</p>
-<p>Um pacote que já possui funções para realizar esses cálculos é o pacote <strong>ec50estimator</strong>, com a função <code>estimate_EC50()</code>. Nesse caso, determinou-se a EC50 sobre a germinação de esporos para cada isolado, com ajuste de modelo logístico no argumento <em><code>fct =</code></em>. Com base no resultado coseguimos identificar que o isolado FGT05 foi o mais sensível ao fungicida testado.</p>
+<p>A determinação da EC50 é muito utilizada quando se trabalha com produtos destinados ao manejo de pragas e doenças. Corresponde a concentração do produto capaz de inibir 50%, por exemplo, da população, do desenvolvimento de um fungo ou no índice de germinação de esporos.</p>
+<p>Um pacote que já possui funções para realizar esses cálculos é o pacote <strong>ec50estimator</strong>, com a função <code>estimate_EC50()</code>. Nesse caso, determinou-se a EC50 sobre a germinação de esporos para cada isolado, com ajuste de modelo logístico no argumento <em><code>fct =</code></em>. Com base no resultado conseguimos identificar que o isolado FGT05 foi o mais sensível ao fungicida testado.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_ec50 <span class="ot">&lt;-</span> <span class="fu">estimate_EC50</span>(mean_germ <span class="sc">~</span> dose,</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> germ,</span>

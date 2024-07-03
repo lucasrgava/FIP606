@@ -50,13 +50,13 @@ dados |>
 
 O teste t de Student é um teste de análise paramétrica e pode ser dividido em três tipos:
 
--   Teste t de **amostras independentes**: Quando se deseja comparar diferenção entre médias de dois tratamentos;
+-   Teste t de **amostras independentes**: Quando se deseja comparar diferença entre médias de dois tratamentos;
 
 -   Teste t de **amostras dependentes** ou pareadas: Quando se deseja comparar diferenças sobre um mesmo grupo antes e depois da aplicação do tratamento;
 
 -   Teste t de **uma amostra**: Quando se deseja comparar a média do grupo com uma determinado valor conhecido.
 
-Reestruturando banco de dados para o formato largo e realizando o teste t utilizando as funções `pivot_wider()` e `t.test()` dos pacotes **tidyr** e **stats**, respectivamente. Por fim a função `report()` do pacote **report** retorna um resumo do resultado do teste. De maneira geral, o teste apresentou diferença significativa entre os dois tratamentos com p-valor \< 0,05.
+Reestruturando banco de dados para o formato largo e realizando o teste t utilizando as funções `pivot_wider()` e `t.test()` dos pacotes **tidyr** e **stats**, respectivamente. Por fim, a função `report()`, do pacote **report,** retorna um resumo do resultado do teste. De maneira geral, o teste apresentou diferença significativa entre os dois tratamentos com p-valor \< 0,05.
 
 ```{r}
 dados <- dados |> 
@@ -72,7 +72,7 @@ Antes de prosseguir com análise paramétrica dos dados, é necessário que os d
 
 ### Normalidade
 
-O teste de normalidade adotado aqui é o teste de **Shapiro-Wilk**. Existem outros testes de normalidade que podem ser utilizados. No entanto, esse teste é considerado o mais poderoso entres os testes. Pode ser feito da seguinte maneira:
+O teste de normalidade adotado aqui é o teste de **Shapiro-Wilk**. Existem outros testes de normalidade que podem ser utilizados. No entanto, esse teste é considerado o mais poderoso entre os testes. Pode ser feito da seguinte maneira:
 
 ```{r}
 shapiro.test(dados$Mg2)
@@ -82,7 +82,7 @@ shapiro.test(dados$Mg2)
 shapiro.test(dados$control)
 ```
 
-Observe que a normalidade foi testada para cada tratamento e o p-valor \> 0,05. Desse maneira, não se rejeita a hipótese nula (H0), que os dados são normais.
+Observe que a normalidade foi testada para cada tratamento e o p-valor \> 0,05. Dessa maneira, não se rejeita a hipótese nula (H0), que os dados são normais.
 
 #### Gráfico de normalidade
 
@@ -101,7 +101,7 @@ A função `var.test()` do pacote **stats** pode ser utilizada para análise de 
 var.test(dados$Mg2, dados$control)
 ```
 
-caso as variâncias não sejam homogêneas pode-se acrescentar o argumento:
+Caso as variâncias não sejam homogêneas, pode-se acrescentar o argumento:
 
 ```{r}
 t.test(dados$Mg2, dados$control, var.equal = FALSE)
@@ -132,7 +132,7 @@ dados2 |>
 
 ## Teste t pareado
 
-Seguindo o mesmo raciocínio utilizado no banco de dados anterior. Para este, também será ajustado para o formato largo antes de seguir com a análise.
+Seguindo o mesmo raciocínio utilizado no banco de dados anterior, para este, também será ajustado para o formato largo antes de seguir com a análise.
 
 Para realizar o teste entre grupos pareados (dependentes), basta acrescentar o argumento `paired = TRUE` dentro da função `t.test()`.
 
@@ -211,7 +211,7 @@ dados3 |>
 
 ## ANOVA
 
-A ANOVA (Análise de Variância), identifica se existe pelo menos uma média com diferença significativa entre as demais. No entanto, ela por si só, não indica quais médias são diferentes entre si. A hipótese testada é que as médias são iguais. O quadro de ANOVA retorna o p-valor e este sendo menor que o nível de significancia adotado pelo pesquisador, rejeita-se a H0 e aceita-se a Ha. Para realizar essa análise no R, pode-se seguir com as funções `anova()` e `lm()` do pacote **stats**. Para entender melhor sobre como utilizar essas funções e seus argumentos, busque ajuda digitando no console *`?NOME DA FUNÇÃO`*.
+A ANOVA (Análise de Variância), identifica a existência de pelo menos uma média com diferença significativa entre as demais. No entanto, ela por si só, não indica quais médias são diferentes entre si. A hipótese testada é que as médias são iguais. O quadro de ANOVA retorna o p-valor e este sendo menor que o nível de significancia adotado pelo pesquisador, rejeita-se a H0 e aceita-se a Ha. Para realizar essa análise no R, pode-se seguir com as funções `anova()` e `lm()` do pacote **stats**. Para entender melhor sobre como utilizar essas funções e seus argumentos, busque ajuda digitando no console *`?NOME DA FUNÇÃO`*.
 
 ```{r}
 anova(lm(tcm ~ especie, data = dados3))
@@ -292,7 +292,7 @@ O p-valor \< 0,05, ou seja, existe pelo menos um par de médias que se diferem e
 
 ## Gráfico: Histograma dos resíduos
 
-Com base no gráfico abaixo, é perceptível que os resíduos segue uma distribuição normal. Seguimos agora com um teste de normalidade para confirmar essa ideia.
+Com base no gráfico abaixo, é perceptível que os resíduos têm uma distribuição normal. Seguimos agora com um teste de normalidade para confirmar essa ideia.
 
 ```{r}
 insects |> 
@@ -306,14 +306,14 @@ insects |>
 shapiro.test(ml$residuals)
 ```
 
-O teste indica não normalidade dos dados, apesar de vsualmente o histograma apresentar uma certa normalidade. Vale lembrar que a homogeneidade das variâncias é mais importanque que a normalidade dos resíduos.
+O teste indica não normalidade dos dados, apesar de visualmente o histograma apresentar uma certa normalidade. Vale lembrar que a homogeneidade das variâncias é mais importanque que a normalidade dos resíduos.
 
 ```{r}
 bartlett.test(count ~ spray, 
               data = insects)
 ```
 
-De acordo com o teste de Bartlett os dados possuem variâncias heterogêneas. Resumindo, não é possível aplicar estatítica paramétrica. Parte-se agora para transformação de dados para verificar se é possível trabalhas com estatística paramétrica com esses dados.
+De acordo com o teste de Bartlett os dados possuem variâncias heterogêneas. Resumindo, não é possível aplicar estatística paramétrica. Parte-se agora para transformação de dados para verificar se é possível trabalhar com estatística paramétrica com esses dados.
 
 Quando os dados são de contagem, normalmente a transformação com base na raiz quadrada é interessante.
 
@@ -383,7 +383,7 @@ insects$count3 <- (insects$count ^ lambda - 1) / lambda
 
 Caso, após as transformações, os dados ainda não atendam as premissas de normalidade e homogeneidade de variâncias, podemos seguir com análise não-paramétrica. Testes não-paramétricos não consideram as premissas antes testadas e permitem que prossigamos com a análise dos dados.
 
-O teste de [Kruskal-Wallis](https://rcompanion.org/handbook/F_08.html) é um teste não paramétrico similar ao teste F. No entanto, o teste não separa os grupos. Para isso, após o teste apresentar que há pelo menos um par de tratamentos que se diferem estatisticamente entre si, é necessário adotar um teste Post Hoc, para comparações múltiplas, dados. A função `kruskal.test()`, do pacote **stats**, realiza essa primeira parte. A função `kruskal()` do pacote **agricolae,** realiza essas duas etapas de uma vez. Caso queira, pode-se realizar testes Post Hoc como o teste de Dunn, teste de Nemenyi ou teste de Conover.
+O teste de [Kruskal-Wallis](https://rcompanion.org/handbook/F_08.html) é um teste não paramétrico similar ao teste F. Portanto, o teste não separa os grupos. Para isso, após o teste apresentar que há pelo menos um par de tratamentos que se diferem estatisticamente entre si, é necessário adotar um teste Post Hoc, para comparações múltiplas. A função `kruskal.test()`, do pacote **stats**, realiza essa primeira parte. A função `kruskal()` do pacote **agricolae,** realiza essas duas etapas de uma vez. Caso queira, pode-se realizar testes Post Hoc como o teste de Dunn, teste de Nemenyi ou teste de Conover.
 
 ```{r}
 kruskal.test(count ~ spray, data = insects)
@@ -409,7 +409,7 @@ Anova(m4)
 
 ```
 
-P-valor \< 0,05, um indicativo que existe pelo menos uma média com diferença significativa. Agoram para separar os grupos seguimos com testes de comparações múltiplas.
+P-valor \< 0,05, um indicativo que existe pelo menos uma média com diferença significativa. Agora para separar os grupos seguimos com testes de comparações múltiplas.
 
 ```{r}
 medias4 <-  emmeans(m4, ~ spray,
@@ -424,7 +424,7 @@ Partimos agora para análise de dados organizados em esquema fatorial.
 
 ## Banco de dados
 
-Dados referentes a um ensaio realizado em Delineamento Inteiramente Casualizado (DIC) em esquema fatorial 2x2. O primeiro fator, qualitativo, comporto pelos níveis: Líquido iônico e Tebuconazol. O segundo fator, quantitativi, composto pelos níveis: 0,5 e 2. Avaliou-se o efeito dos tratamentos sobre a intensidade de uma doença qualquer.
+Dados referentes a um ensaio realizado em Delineamento Inteiramente Casualizado (DIC) em esquema fatorial 2x2. O primeiro fator, qualitativo, composto pelos níveis: Líquido iônico e Tebuconazol. O segundo fator, quantitativo, composto pelos níveis: 0,5 e 2. Avaliou-se o efeito dos tratamentos sobre a intensidade de uma doença qualquer.
 
 ```{r}
 dados <- gsheet::gsheet2tbl("https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=2023059672")
@@ -445,7 +445,7 @@ dados |>
 
 # ANOVA e teste de comparações múltiplas
 
-Vamos rodar os testes para verificar se realmente existe essa diferença detectada visualmente no gráfico. Nesse caso ajustamos o modelo como se segue:
+Vamos rodar os testes para verificar se realmente existe essa diferença detectada visualmente no gráfico. Nesse caso, ajustamos o modelo como se segue:
 
 ```{r}
 mf <- lm(severity ~ treat*factor(dose), data = dados )
@@ -457,4 +457,4 @@ mf_medias2 <- cld(emmeans(mf, ~ dose | treat))
 mf_medias1; mf_medias2
 ```
 
-Como visualizado no gráfico de dispersão, existe diferença entre os níveis de dose dentro do fator líquido iônico e diferença entre os níveis qualitativos dentro do nível 0,5 do fator dose. Concluindo que a plicação do líquido iônico é equivalente a aplicação de fungicida tebuconazol quando aplicado na dose 2, sobre a redução da severidade da doença.
+Como visualizado no gráfico de dispersão, existe diferença entre os níveis de dose dentro do fator líquido iônico e diferença entre os níveis qualitativos dentro do nível 0,5 do fator dose. Concluindo que a aplicação do líquido iônico é equivalente a aplicação de fungicida tebuconazol quando aplicado na dose 2, sobre a redução da severidade da doença.

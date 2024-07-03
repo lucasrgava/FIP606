@@ -342,11 +342,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="teste-t-de-student">Teste t de Student</h2>
 <p>O teste t de Student é um teste de análise paramétrica e pode ser dividido em três tipos:</p>
 <ul>
-<li><p>Teste t de <strong>amostras independentes</strong>: Quando se deseja comparar diferenção entre médias de dois tratamentos;</p></li>
+<li><p>Teste t de <strong>amostras independentes</strong>: Quando se deseja comparar diferença entre médias de dois tratamentos;</p></li>
 <li><p>Teste t de <strong>amostras dependentes</strong> ou pareadas: Quando se deseja comparar diferenças sobre um mesmo grupo antes e depois da aplicação do tratamento;</p></li>
 <li><p>Teste t de <strong>uma amostra</strong>: Quando se deseja comparar a média do grupo com uma determinado valor conhecido.</p></li>
 </ul>
-<p>Reestruturando banco de dados para o formato largo e realizando o teste t utilizando as funções <code>pivot_wider()</code> e <code>t.test()</code> dos pacotes <strong>tidyr</strong> e <strong>stats</strong>, respectivamente. Por fim a função <code>report()</code> do pacote <strong>report</strong> retorna um resumo do resultado do teste. De maneira geral, o teste apresentou diferença significativa entre os dois tratamentos com p-valor &lt; 0,05.</p>
+<p>Reestruturando banco de dados para o formato largo e realizando o teste t utilizando as funções <code>pivot_wider()</code> e <code>t.test()</code> dos pacotes <strong>tidyr</strong> e <strong>stats</strong>, respectivamente. Por fim, a função <code>report()</code>, do pacote <strong>report,</strong> retorna um resumo do resultado do teste. De maneira geral, o teste apresentou diferença significativa entre os dois tratamentos com p-valor &lt; 0,05.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> trat, <span class="at">values_from =</span> comp)</span>
@@ -369,7 +369,7 @@ is negative, statistically significant, and large (difference = -5.16, 95% CI
 <p>Antes de prosseguir com análise paramétrica dos dados, é necessário que os dados atendam as premissas de <strong>Normalidade dos Dados</strong> e <strong>Homogeneidade de Variâncias</strong>.</p>
 <section id="normalidade" class="level3">
 <h3 class="anchored" data-anchor-id="normalidade">Normalidade</h3>
-<p>O teste de normalidade adotado aqui é o teste de <strong>Shapiro-Wilk</strong>. Existem outros testes de normalidade que podem ser utilizados. No entanto, esse teste é considerado o mais poderoso entres os testes. Pode ser feito da seguinte maneira:</p>
+<p>O teste de normalidade adotado aqui é o teste de <strong>Shapiro-Wilk</strong>. Existem outros testes de normalidade que podem ser utilizados. No entanto, esse teste é considerado o mais poderoso entre os testes. Pode ser feito da seguinte maneira:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(dados<span class="sc">$</span>Mg2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -390,7 +390,7 @@ data:  dados$control
 W = 0.93886, p-value = 0.5404</code></pre>
 </div>
 </div>
-<p>Observe que a normalidade foi testada para cada tratamento e o p-valor &gt; 0,05. Desse maneira, não se rejeita a hipótese nula (H0), que os dados são normais.</p>
+<p>Observe que a normalidade foi testada para cada tratamento e o p-valor &gt; 0,05. Dessa maneira, não se rejeita a hipótese nula (H0), que os dados são normais.</p>
 <section id="gráfico-de-normalidade" class="level4">
 <h4 class="anchored" data-anchor-id="gráfico-de-normalidade">Gráfico de normalidade</h4>
 <p>O código abaixo, apresenta graficamente a normalidade dos dados. Nesse caso, testamos a normalidade para o vetor de valores do tratamento Mg. A interpretação do gráfico é que quanto mais próximo os pontos estão da reta, ou, quanto menor esse erro dos pontos em relação a reta, mais próximo da normalidade estão os dados.</p>
@@ -426,7 +426,7 @@ ratio of variances
           1.478111 </code></pre>
 </div>
 </div>
-<p>caso as variâncias não sejam homogêneas pode-se acrescentar o argumento:</p>
+<p>Caso as variâncias não sejam homogêneas, pode-se acrescentar o argumento:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(dados<span class="sc">$</span>Mg2, dados<span class="sc">$</span>control, <span class="at">var.equal =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -474,7 +474,7 @@ mean of x mean of y
 </section>
 <section id="teste-t-pareado" class="level2">
 <h2 class="anchored" data-anchor-id="teste-t-pareado">Teste t pareado</h2>
-<p>Seguindo o mesmo raciocínio utilizado no banco de dados anterior. Para este, também será ajustado para o formato largo antes de seguir com a análise.</p>
+<p>Seguindo o mesmo raciocínio utilizado no banco de dados anterior, para este, também será ajustado para o formato largo antes de seguir com a análise.</p>
 <p>Para realizar o teste entre grupos pareados (dependentes), basta acrescentar o argumento <code>paired = TRUE</code> dentro da função <code>t.test()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> dados2 <span class="sc">|&gt;</span> </span>
@@ -612,7 +612,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </section>
 <section id="anova" class="level2">
 <h2 class="anchored" data-anchor-id="anova">ANOVA</h2>
-<p>A ANOVA (Análise de Variância), identifica se existe pelo menos uma média com diferença significativa entre as demais. No entanto, ela por si só, não indica quais médias são diferentes entre si. A hipótese testada é que as médias são iguais. O quadro de ANOVA retorna o p-valor e este sendo menor que o nível de significancia adotado pelo pesquisador, rejeita-se a H0 e aceita-se a Ha. Para realizar essa análise no R, pode-se seguir com as funções <code>anova()</code> e <code>lm()</code> do pacote <strong>stats</strong>. Para entender melhor sobre como utilizar essas funções e seus argumentos, busque ajuda digitando no console <em><code>?NOME DA FUNÇÃO</code></em>.</p>
+<p>A ANOVA (Análise de Variância), identifica a existência de pelo menos uma média com diferença significativa entre as demais. No entanto, ela por si só, não indica quais médias são diferentes entre si. A hipótese testada é que as médias são iguais. O quadro de ANOVA retorna o p-valor e este sendo menor que o nível de significancia adotado pelo pesquisador, rejeita-se a H0 e aceita-se a Ha. Para realizar essa análise no R, pode-se seguir com as funções <code>anova()</code> e <code>lm()</code> do pacote <strong>stats</strong>. Para entender melhor sobre como utilizar essas funções e seus argumentos, busque ajuda digitando no console <em><code>?NOME DA FUNÇÃO</code></em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(tcm <span class="sc">~</span> especie, <span class="at">data =</span> dados3))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -763,7 +763,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </section>
 <section id="gráfico-histograma-dos-resíduos" class="level2">
 <h2 class="anchored" data-anchor-id="gráfico-histograma-dos-resíduos">Gráfico: Histograma dos resíduos</h2>
-<p>Com base no gráfico abaixo, é perceptível que os resíduos segue uma distribuição normal. Seguimos agora com um teste de normalidade para confirmar essa ideia.</p>
+<p>Com base no gráfico abaixo, é perceptível que os resíduos têm uma distribuição normal. Seguimos agora com um teste de normalidade para confirmar essa ideia.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>insects <span class="sc">|&gt;</span> </span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ml<span class="sc">$</span>residuals)) <span class="sc">+</span></span>
@@ -788,7 +788,7 @@ data:  ml$residuals
 W = 0.96006, p-value = 0.02226</code></pre>
 </div>
 </div>
-<p>O teste indica não normalidade dos dados, apesar de vsualmente o histograma apresentar uma certa normalidade. Vale lembrar que a homogeneidade das variâncias é mais importanque que a normalidade dos resíduos.</p>
+<p>O teste indica não normalidade dos dados, apesar de visualmente o histograma apresentar uma certa normalidade. Vale lembrar que a homogeneidade das variâncias é mais importanque que a normalidade dos resíduos.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bartlett.test</span>(count <span class="sc">~</span> spray, </span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> insects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -800,7 +800,7 @@ data:  count by spray
 Bartlett's K-squared = 25.96, df = 5, p-value = 9.085e-05</code></pre>
 </div>
 </div>
-<p>De acordo com o teste de Bartlett os dados possuem variâncias heterogêneas. Resumindo, não é possível aplicar estatítica paramétrica. Parte-se agora para transformação de dados para verificar se é possível trabalhas com estatística paramétrica com esses dados.</p>
+<p>De acordo com o teste de Bartlett os dados possuem variâncias heterogêneas. Resumindo, não é possível aplicar estatística paramétrica. Parte-se agora para transformação de dados para verificar se é possível trabalhar com estatística paramétrica com esses dados.</p>
 <p>Quando os dados são de contagem, normalmente a transformação com base na raiz quadrada é interessante.</p>
 </section>
 <section id="alternativa-1-transformação" class="level2">
@@ -922,7 +922,7 @@ NOTE: If two or more means share the same grouping symbol,
 <section id="alternativa-2-teste-não-paramétrico" class="level2">
 <h2 class="anchored" data-anchor-id="alternativa-2-teste-não-paramétrico">Alternativa 2: Teste não paramétrico</h2>
 <p>Caso, após as transformações, os dados ainda não atendam as premissas de normalidade e homogeneidade de variâncias, podemos seguir com análise não-paramétrica. Testes não-paramétricos não consideram as premissas antes testadas e permitem que prossigamos com a análise dos dados.</p>
-<p>O teste de <a href="https://rcompanion.org/handbook/F_08.html">Kruskal-Wallis</a> é um teste não paramétrico similar ao teste F. No entanto, o teste não separa os grupos. Para isso, após o teste apresentar que há pelo menos um par de tratamentos que se diferem estatisticamente entre si, é necessário adotar um teste Post Hoc, para comparações múltiplas, dados. A função <code>kruskal.test()</code>, do pacote <strong>stats</strong>, realiza essa primeira parte. A função <code>kruskal()</code> do pacote <strong>agricolae,</strong> realiza essas duas etapas de uma vez. Caso queira, pode-se realizar testes Post Hoc como o teste de Dunn, teste de Nemenyi ou teste de Conover.</p>
+<p>O teste de <a href="https://rcompanion.org/handbook/F_08.html">Kruskal-Wallis</a> é um teste não paramétrico similar ao teste F. Portanto, o teste não separa os grupos. Para isso, após o teste apresentar que há pelo menos um par de tratamentos que se diferem estatisticamente entre si, é necessário adotar um teste Post Hoc, para comparações múltiplas. A função <code>kruskal.test()</code>, do pacote <strong>stats</strong>, realiza essa primeira parte. A função <code>kruskal()</code> do pacote <strong>agricolae,</strong> realiza essas duas etapas de uma vez. Caso queira, pode-se realizar testes Post Hoc como o teste de Dunn, teste de Nemenyi ou teste de Conover.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(count <span class="sc">~</span> spray, <span class="at">data =</span> insects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -991,7 +991,7 @@ spray   310.71  5  &lt; 2.2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-<p>P-valor &lt; 0,05, um indicativo que existe pelo menos uma média com diferença significativa. Agoram para separar os grupos seguimos com testes de comparações múltiplas.</p>
+<p>P-valor &lt; 0,05, um indicativo que existe pelo menos uma média com diferença significativa. Agora para separar os grupos seguimos com testes de comparações múltiplas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>medias4 <span class="ot">&lt;-</span>  <span class="fu">emmeans</span>(m4, <span class="sc">~</span> spray,</span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type =</span> <span class="st">"response"</span>)</span>
@@ -1022,7 +1022,7 @@ NOTE: If two or more means share the same grouping symbol,
 <p>Partimos agora para análise de dados organizados em esquema fatorial.</p>
 <section id="banco-de-dados-1" class="level2">
 <h2 class="anchored" data-anchor-id="banco-de-dados-1">Banco de dados</h2>
-<p>Dados referentes a um ensaio realizado em Delineamento Inteiramente Casualizado (DIC) em esquema fatorial 2x2. O primeiro fator, qualitativo, comporto pelos níveis: Líquido iônico e Tebuconazol. O segundo fator, quantitativi, composto pelos níveis: 0,5 e 2. Avaliou-se o efeito dos tratamentos sobre a intensidade de uma doença qualquer.</p>
+<p>Dados referentes a um ensaio realizado em Delineamento Inteiramente Casualizado (DIC) em esquema fatorial 2x2. O primeiro fator, qualitativo, composto pelos níveis: Líquido iônico e Tebuconazol. O segundo fator, quantitativo, composto pelos níveis: 0,5 e 2. Avaliou-se o efeito dos tratamentos sobre a intensidade de uma doença qualquer.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> gsheet<span class="sc">::</span><span class="fu">gsheet2tbl</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=2023059672"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -1049,7 +1049,7 @@ NOTE: If two or more means share the same grouping symbol,
 </section>
 <section id="anova-e-teste-de-comparações-múltiplas" class="level1">
 <h1>ANOVA e teste de comparações múltiplas</h1>
-<p>Vamos rodar os testes para verificar se realmente existe essa diferença detectada visualmente no gráfico. Nesse caso ajustamos o modelo como se segue:</p>
+<p>Vamos rodar os testes para verificar se realmente existe essa diferença detectada visualmente no gráfico. Nesse caso, ajustamos o modelo como se segue:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="fu">lm</span>(severity <span class="sc">~</span> treat<span class="sc">*</span><span class="fu">factor</span>(dose), <span class="at">data =</span> dados )</span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(mf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1112,7 +1112,7 @@ NOTE: If two or more means share the same grouping symbol,
       But we also did not show them to be the same. </code></pre>
 </div>
 </div>
-<p>Como visualizado no gráfico de dispersão, existe diferença entre os níveis de dose dentro do fator líquido iônico e diferença entre os níveis qualitativos dentro do nível 0,5 do fator dose. Concluindo que a plicação do líquido iônico é equivalente a aplicação de fungicida tebuconazol quando aplicado na dose 2, sobre a redução da severidade da doença.</p>
+<p>Como visualizado no gráfico de dispersão, existe diferença entre os níveis de dose dentro do fator líquido iônico e diferença entre os níveis qualitativos dentro do nível 0,5 do fator dose. Concluindo que a aplicação do líquido iônico é equivalente a aplicação de fungicida tebuconazol quando aplicado na dose 2, sobre a redução da severidade da doença.</p>
 
 
 </section>

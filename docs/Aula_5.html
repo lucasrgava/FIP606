@@ -265,7 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="banco-de-dados" class="level1">
 <h1>Banco de dados</h1>
-<p>O banco de dados para ser analisado é referente as notas das sabatina 1 e 2 aplicadas a turma da disciplina de Análise de Dados do 1° semestre de 2024.</p>
+<p>O banco de dados para ser analisado é referente as notas das sabatinas 1 e 2 aplicadas a turma da disciplina de Análise de Dados do 1° semestre de 2024.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>notas <span class="ot">&lt;-</span> <span class="fu">gsheet2tbl</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=1092065531"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -275,7 +275,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="sumarizando-os-dados" class="level1">
 <h1>Sumarizando os dados</h1>
-<p>Nota-se que as notas entre as duas provas possuem comportamento de distribuições bem similares. Para valores de média, desvio padrão, mediana e somatório muito semelhantes. Diferença numericamente maior é observado na variância dos dados entre as duas provas. Uma vez que se calcula o quadrado do erro, as difereças entre os erros se tornam mais evidentes.</p>
+<p>Percebe-se que as notas entre as duas provas possuem comportamento de distribuições bem similares. Para valores de média, desvio padrão, mediana e somatório muito semelhantes. Diferença numericamente maior é observado na variância dos dados entre as duas provas. Uma vez que se calcula o quadrado do erro, as diferenças entre os erros se tornam mais evidentes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>notas <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="st">"Prova"</span> <span class="ot">=</span> prova) <span class="sc">|&gt;</span> </span>
@@ -368,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="boxplot" class="level2">
 <h2 class="anchored" data-anchor-id="boxplot">Boxplot</h2>
-<p>O boxplot abaixo deixa claro que a distribuição dos notas entre as duas provas são bem semelhantes como já observado anteriormente. Com valores de amplitude dos dados, primeiro, segundo e terceiro quartis muito próximos.</p>
+<p>O boxplot abaixo deixa claro que a distribuição das notas entre as duas provas são bem semelhantes como já observado anteriormente. Com valores de amplitude dos dados, primeiro, segundo e terceiro quartis muito próximos.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>notas <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> prova, <span class="at">y =</span> nota)) <span class="sc">+</span></span>
@@ -387,8 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="dispersão" class="level2">
 <h2 class="anchored" data-anchor-id="dispersão">Dispersão</h2>
-<p>O gráfico abaixo apresenta a dispersão das notas e indica a percentagem de alunos que tiverem notas abaixo da nota de referência em cada prova aplica.</p>
-<p>Utilizando a nota de referência hipotética (75), 45,45 % dos alunos tiveram notas abaixo de 75, enquanto na segunda prova, 40,91 % dos alunos tiveram notas abaixo de 75. Indicando melhora das notas entre a primerira e segunda avaliação. Esse diferença, representa que um aluno teve nota maior ou igual a 75 na segunda prova quando comparado a primeira que na prática pode não ser tão significante.</p>
+<p>O gráfico abaixo apresenta a dispersão das notas e indica a percentagem de alunos que tiverem notas abaixo da nota de referência em cada prova aplicada.</p>
+<p>Utilizando a nota de referência hipotética (75), 45,45 % dos alunos tiveram notas abaixo de 75, enquanto na segunda prova, 40,91 % dos alunos tiveram notas abaixo de 75. Indicando melhora das notas entre a primerira e segunda avaliação. Essa diferença, representa que um aluno teve nota maior ou igual a 75 na segunda prova quando comparado a primeira que na prática pode não ser tão significante.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> notas <span class="sc">|&gt;</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(prova <span class="sc">==</span> <span class="st">'Prova 1'</span>, nota <span class="sc">&lt;</span> <span class="dv">75</span>) <span class="sc">|&gt;</span> </span>
@@ -434,7 +434,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="conclusão" class="level1">
 <h1>Conclusão</h1>
-<p>O comportamento das notas entre as duas provas são praticamente iguais, apesar de tentar encontrar possíveis diferenças entre as notas das provas, não considero que elas possuem sentido prático. Umas vez que no gráfico de disperção a diferença encontrada é referente apenas a um aluno.</p>
+<p>O comportamento das notas entre as duas provas são praticamente iguais, apesar de tentar encontrar possíveis diferenças entre as notas das provas, não considero que elas possuam sentido prático. Uma vez que no gráfico de dispersão a diferença encontrada é referente apenas a um aluno.</p>
 
 
 </section>
