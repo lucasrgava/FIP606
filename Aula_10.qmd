@@ -37,7 +37,7 @@ O Coeficiente de Determinação (r\^2), varia entre 0 e 1, e retrata o quanto de
 
 ## Banco de dados
 
-Os dados se referem a medição da severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diretentes softwares, **Assess**, **LeafDoctor** e **ImageJ**, para determinar tal severidade.
+Os dados se referem a medição da severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diferentes softwares, **Assess**, **LeafDoctor** e **ImageJ**, para determinar tal severidade.
 
 ```{r}
 dados <- gsheet2tbl('https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=373270992')
@@ -70,7 +70,7 @@ p1 + p2
 
 ### Matriz de correlação
 
-Utilizando a função `corgraph()` do pacote **AgroR** é possível criar uma matriz de correalação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assess é pago.
+Utilizando a função `corgraph()` do pacote **AgroR** é possível criar uma matriz de correlação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assess é pago.
 
 ```{r}
 imgs <- dados |> 
@@ -107,7 +107,7 @@ dfc; fer
 
 De fato, as correlações entre as variáveis doenção versus produtividade foram negativas e moderadas.
 
-O código abaixo, filtra os intervalos de confiança entre as correlações calculadas entre as variáveis de doenças versus produtividade.
+O código abaixo filtra os intervalos de confiança das correlações calculadas entre as variáveis de doenças versus produtividade.
 
 ```{r}
 dfc$conf.int[1:2]
@@ -155,7 +155,7 @@ hist(residuals(lm2))
 
 ### Ajuste de modelo linear de 2° grau
 
-Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo "**+**". Seguimos com um resumo do modelo, utilizando a função `summary()`, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função `AIC()`, É muito útil para comparar diferentes modelos e selecionar o melhor. Significa dizer que, quanto menor o valor de AIC, melhor é o modelo.
+Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo "**+**". Seguimos com um resumo do modelo, utilizando a função `summary()`, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função `AIC()`, utilizado para comparar diferentes modelos e selecionar o melhor. Significa dizer que, quanto menor o valor de AIC, melhor é o modelo.
 
 ```{r}
 exp2$trat2 <- exp2$trat^2
@@ -208,7 +208,7 @@ germ |>
 
 ## Ajuste do modelo
 
-No código abaixo, utilizamos a dunção `drm()` do pacote **drc**, para ajutar modelos não lineares. O argumento *`fct =`* permite que seja inserido qual modelo não linear seja ajustado. Para mais sobre o uso da função execute o comando no console: `?drm`.
+No código abaixo, utilizamos a função `drm()` do pacote **drc**, para ajutar modelos não lineares. O argumento *`fct =`* permite que seja definido qual modelo não linear seja ajustado. Para mais sobre o uso da função execute o comando no console: `?drm`.
 
 ```{r}
 isolado.x <- germ |> 

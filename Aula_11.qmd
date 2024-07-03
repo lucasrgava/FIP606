@@ -42,7 +42,7 @@ library(ggrepel) # colocar nome em cima do ponto
 
 O banco de dados a seguir, é referente a locais de ocorrência de epidemias de ferrugem da soja.
 
-Utilizando o código abaixo, é possível selecionar os limites de região de interesse, seja estado, país, entre outros. No nosso caso, selecionamos os limites dos estados do Brasil, que coincidem os pontos do nosso banco de dados. Sobrepondo essas camadas, de pontos e limites estaduais, podemos ver as ocorrências no Brasil.
+Utilizando o código abaixo, é possível selecionar os limites de região de interesse, seja estado, país, entre outros. No nosso caso, selecionamos os limites dos estados do Brasil, que coincidem aos pontos do nosso banco de dados. Sobrepondo essas camadas, de pontos e limites estaduais, podemos ver as ocorrências no Brasil.
 
 ```{r}
 BRA <- ne_states(country = "Brazil", returnclass = "sf")
@@ -77,7 +77,7 @@ ggplotly(bra) ## criando gráfico interativo
 
 ## Mapas iguais ao do Google maps!
 
-Criando um gráfico interativo igual ao google maps e inserindo pontos. A função `leaflet()`, identifica automaticamente dentro do banco de tados **sbr** as colunas nomeadas com **latitude** e **longitude** não precisando identificar quais são. A função **addCircleMarkers()** insere os pontos de acordo com as coordenadas. O gráfico gerado também é interativo.
+Criando um gráfico interativo igual ao google maps e inserindo pontos. A função `leaflet()`, identifica automaticamente dentro do banco de dados **sbr** as colunas nomeadas com **latitude** e **longitude** não precisando identificar quais são. A função **addCircleMarkers()** insere os pontos de acordo com as coordenadas. O gráfico gerado também é interativo.
 
 ```{r}
 leaflet(sbr) |> 

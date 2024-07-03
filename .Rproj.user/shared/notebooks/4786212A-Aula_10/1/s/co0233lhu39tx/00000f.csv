@@ -1,0 +1,8 @@
+"0","library(corrplot)"
+"2","Warning:"
+"2"," package ‘corrplot’ was built under R version 4.3.3
+"
+"2","corrplot 0.92 loaded
+"
+"0","cor_img <- cor(imgs)"
+"0","corrplot(cor_img, method = 'square', type = 'lower')"

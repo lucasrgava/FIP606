@@ -297,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>O Coeficiente de Determinação (r^2), varia entre 0 e 1, e retrata o quanto de y é explicado pela variação de x. Seu cálculo é simples e resume-se em elevar o <strong>r</strong> ao quadrado.</p>
 <section id="banco-de-dados" class="level2">
 <h2 class="anchored" data-anchor-id="banco-de-dados">Banco de dados</h2>
-<p>Os dados se referem a medição da severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diretentes softwares, <strong>Assess</strong>, <strong>LeafDoctor</strong> e <strong>ImageJ</strong>, para determinar tal severidade.</p>
+<p>Os dados se referem a medição da severidade de uma determinada doença na cultura da roseira, tomate, café e feijão, utilizando diferentes softwares, <strong>Assess</strong>, <strong>LeafDoctor</strong> e <strong>ImageJ</strong>, para determinar tal severidade.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">gsheet2tbl</span>(<span class="st">'https://docs.google.com/spreadsheets/d/1bq2N19DcZdtax2fQW9OHSGMR0X2__Z9T/edit#gid=373270992'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="matriz-de-correlação" class="level3">
 <h3 class="anchored" data-anchor-id="matriz-de-correlação">Matriz de correlação</h3>
-<p>Utilizando a função <code>corgraph()</code> do pacote <strong>AgroR</strong> é possível criar uma matriz de correalação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assess é pago.</p>
+<p>Utilizando a função <code>corgraph()</code> do pacote <strong>AgroR</strong> é possível criar uma matriz de correlação. Como esperado existe forte correlação positiva entre as severidades mensuradas pelos softwares. Dessa forma, pode-se utilizar qualquer programa para calcular a severidade já que o Assess é pago.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>imgs <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>)</span>
@@ -460,7 +460,7 @@ sample estimates:
 </div>
 </div>
 <p>De fato, as correlações entre as variáveis doenção versus produtividade foram negativas e moderadas.</p>
-<p>O código abaixo, filtra os intervalos de confiança entre as correlações calculadas entre as variáveis de doenças versus produtividade.</p>
+<p>O código abaixo filtra os intervalos de confiança das correlações calculadas entre as variáveis de doenças versus produtividade.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>dfc<span class="sc">$</span>conf.int[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -547,7 +547,7 @@ F-statistic: 19.05 on 1 and 22 DF,  p-value: 0.0002473</code></pre>
 </section>
 <section id="ajuste-de-modelo-linear-de-2-grau" class="level3">
 <h3 class="anchored" data-anchor-id="ajuste-de-modelo-linear-de-2-grau">Ajuste de modelo linear de 2° grau</h3>
-<p>Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo “<strong>+</strong>”. Seguimos com um resumo do modelo, utilizando a função <code>summary()</code>, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função <code>AIC()</code>, É muito útil para comparar diferentes modelos e selecionar o melhor. Significa dizer que, quanto menor o valor de AIC, melhor é o modelo.</p>
+<p>Observe que foi criada mais uma coluna com valores elevados ao quadrado. No modelo, a variável elevada é acrescida por meio de simbolo “<strong>+</strong>”. Seguimos com um resumo do modelo, utilizando a função <code>summary()</code>, onde verificamos os valores dos coeficientes da regressão e seu intercepto. Posteriormente, calculou-se o Critério de Akaike, pela função <code>AIC()</code>, utilizado para comparar diferentes modelos e selecionar o melhor. Significa dizer que, quanto menor o valor de AIC, melhor é o modelo.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>exp2<span class="sc">$</span>trat2 <span class="ot">&lt;-</span> exp2<span class="sc">$</span>trat<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -663,7 +663,7 @@ Residual  18 2636.2500  146.4583                       </code></pre>
 </section>
 <section id="ajuste-do-modelo" class="level2">
 <h2 class="anchored" data-anchor-id="ajuste-do-modelo">Ajuste do modelo</h2>
-<p>No código abaixo, utilizamos a dunção <code>drm()</code> do pacote <strong>drc</strong>, para ajutar modelos não lineares. O argumento <em><code>fct =</code></em> permite que seja inserido qual modelo não linear seja ajustado. Para mais sobre o uso da função execute o comando no console: <code>?drm</code>.</p>
+<p>No código abaixo, utilizamos a função <code>drm()</code> do pacote <strong>drc</strong>, para ajutar modelos não lineares. O argumento <em><code>fct =</code></em> permite que seja definido qual modelo não linear seja ajustado. Para mais sobre o uso da função execute o comando no console: <code>?drm</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>isolado.x <span class="ot">&lt;-</span> germ <span class="sc">|&gt;</span> </span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(code <span class="sc">==</span> <span class="dv">152</span>)</span>

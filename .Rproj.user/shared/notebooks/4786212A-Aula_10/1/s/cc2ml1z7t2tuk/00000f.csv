@@ -1,0 +1,4 @@
+"0","imgs <- dados |> "
+"0","  dplyr::select(3:5)"
+"0",""
+"0","corgraph(imgs)"
