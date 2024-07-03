@@ -200,7 +200,7 @@ cr |>
   count(region, zone)
 ```
 
-A função "tabyl()" do pacote **janitor** é uma forma rápida de criar uma tabela de frequência. No exemplo a seguir, uma tabela de frequência em função da cultivar e região.
+A função `tabyl()` do pacote **janitor** é uma forma rápida de criar uma tabela de frequência. No exemplo a seguir, uma tabela de frequência em função da cultivar e região.
 
 ```{r}
 cr |> 

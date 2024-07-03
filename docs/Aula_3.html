@@ -224,14 +224,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#histograma" id="toc-histograma" class="nav-link" data-scroll-target="#histograma">Histograma</a></li>
   <li><a href="#sumarizando-os-dados" id="toc-sumarizando-os-dados" class="nav-link" data-scroll-target="#sumarizando-os-dados">Sumarizando os dados</a>
   <ul class="collapse">
-  <li><a href="#utilizando-a-função-summary" id="toc-utilizando-a-função-summary" class="nav-link" data-scroll-target="#utilizando-a-função-summary">Utilizando a função ‘summary()’</a></li>
+  <li><a href="#utilizando-a-função-summary" id="toc-utilizando-a-função-summary" class="nav-link" data-scroll-target="#utilizando-a-função-summary">Utilizando a função <code>summary()</code></a></li>
   </ul></li>
   <li><a href="#boxplot-por-região" id="toc-boxplot-por-região" class="nav-link" data-scroll-target="#boxplot-por-região">Boxplot por região</a></li>
   <li><a href="#sumarizando-por-região" id="toc-sumarizando-por-região" class="nav-link" data-scroll-target="#sumarizando-por-região">Sumarizando por região</a></li>
   <li><a href="#relação-entre-severidade-e-incidência" id="toc-relação-entre-severidade-e-incidência" class="nav-link" data-scroll-target="#relação-entre-severidade-e-incidência">Relação entre severidade e incidência</a></li>
-  <li><a href="#cria-subconjuntos" id="toc-cria-subconjuntos" class="nav-link" data-scroll-target="#cria-subconjuntos">Cria subconjuntos</a>
+  <li><a href="#criar-subconjuntos" id="toc-criar-subconjuntos" class="nav-link" data-scroll-target="#criar-subconjuntos">Criar subconjuntos</a>
   <ul class="collapse">
-  <li><a href="#visualiza-os-subconjuntos" id="toc-visualiza-os-subconjuntos" class="nav-link" data-scroll-target="#visualiza-os-subconjuntos">Visualiza os subconjuntos</a></li>
+  <li><a href="#visualizar-os-subconjuntos" id="toc-visualizar-os-subconjuntos" class="nav-link" data-scroll-target="#visualizar-os-subconjuntos">Visualizar os subconjuntos</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="pacotes" class="level1">
 <h1>Pacotes</h1>
-<p>Abaixo o código para carregamento dos pacotes que são utilizados no decorrer do relatório. Para manipulação dos dados, o <strong>tidyverse</strong>, um pacote auxiliar para manipulação dos gráficos gerados, o <strong>patchwork</strong> e por último, o pacote <strong>ggthemes</strong> para acessar mais opções de themas para os gráficos criados com o pacote <strong>ggplot2</strong>.</p>
+<p>Abaixo é apresentado o código para carregamento dos pacotes que são utilizados no decorrer do relatório. Para manipulação dos dados, o <strong>tidyverse</strong>, um pacote auxiliar para manipulação dos gráficos gerados, o <strong>patchwork</strong> e por último, o pacote <strong>ggthemes</strong> para acessar mais opções de themas para os gráficos criados com o pacote <strong>ggplot2</strong>.</p>
 <p>O pacote <strong>tidyverse</strong> é basicamente uma biblioteca que, ao carregá-lo, automáticamente é carregado outros pacotes úteis para a manipulação e análise de dados como o <strong>dplyr</strong> e o <strong>ggplot2</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -286,16 +286,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>O código abaixo, utiliza da função ‘read_csv()’ do pacote <strong>readr</strong> (carregado automaticamente junto com o pacote <strong>tidyverse</strong>) para ler os dados em formato .csv, ao passo que os dados são armazenados no objeto nomeado como ‘cr’. A função utiliza como primeiro argumento o local do arquivo de dados. Atenção para inserir o local do arquivo entre aspas simples (’ ’) ou aspas duplas (” “). Outros argumentos da função podem ser acessados pela ajuda.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Atribuindo banco de dados ao objeto 'cr':</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/emdelponte/paper-coffee-rust-Ethiopia/master/data/survey_clean.csv'</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Buscando ajuda sobre a função:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>cr <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/emdelponte/paper-coffee-rust-Ethiopia/master/data/survey_clean.csv'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Buscando ajuda sobre a função:</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>?read_csv</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>?read_csv</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizando o banco de dados:</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>cr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualizando o banco de dados:</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>cr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 405 × 13
     farm region zone       district      lon   lat altitude cultivar shade    
@@ -318,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="histograma" class="level1">
 <h1>Histograma</h1>
-<p>Com o intuito de explorar os dados que possuimos, uma boa maneira de começar a compreendê-los é por meio da visualização dos dados através de histogramas. Logo abaixo, foi criado histogramas para cada região e cultivar utilizando o pacote <strong>ggplot2</strong>. Dessa forma, fica mais fácil visualizar possiveis comportamentos/ padrões dos dados de severidade da doença em cada região e em cada cultivar sumultaneamente. A “grosso modo”, é visível que os padrões de severidade da doença está mais relacionada às cultivares do que para às regiões. Por exemplo, as lavouras com cultivares melhoradas apresentaram intensidade da doença abaixo de 10%. Enquanto, a cultivar local (crioula) apresentou locais com a intensidade da doença acima dos 30%. Essas inferências só foi possível devido a vizualização dos dados por meio gráfico. Tal conclusão, não seria alcançada apenas observando os dados tabulados.</p>
+<p>Com o intuito de explorar os dados que possuimos, uma boa maneira de começar a compreendê-los é por meio da visualização dos dados através de histogramas. Logo abaixo, foi criado histogramas para cada região e cultivar utilizando o pacote <strong>ggplot2</strong>. Dessa forma, fica mais fácil visualizar possiveis comportamentos/ padrões dos dados de severidade da doença em cada região e em cada cultivar simultaneamente. A “grosso modo”, é visível que os padrões de severidade da doença está mais relacionada às cultivares do que para às regiões. Por exemplo, as lavouras com cultivares melhoradas apresentaram intensidade da doença abaixo de 10%. Enquanto, a cultivar local (crioula) apresentou locais com a intensidade da doença acima dos 30%. Essas inferências só foram possível devido a vizualização dos dados por meio gráfico. Tal conclusão, não seria alcançada apenas observando os dados tabulados.</p>
 <p><strong>Observação sobre o código abaixo:</strong></p>
 <p>Para a criação de histogramas, na estética (função ‘aes()’), é definido apenas os valores para o eixo da abscissa (eixo x). Os valores do eixo das ordenadas (eixo y) são referentes à frequência em que cada observação ocorre dentro do vetor da abscissa definido na estética.</p>
 <p>Ao final do código, o gráfico gerado foi salvo utilizando a função ‘ggsave()’ do pacote <strong>ggplot2</strong>, diretamente na pasta imagens.</p>
@@ -350,8 +347,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sumarizando-os-dados" class="level1">
 <h1>Sumarizando os dados</h1>
 <section id="utilizando-a-função-summary" class="level2">
-<h2 class="anchored" data-anchor-id="utilizando-a-função-summary">Utilizando a função ‘summary()’</h2>
-<p>Uma outra maneira complementar à exploração dos dados é por meio da sumarização dos dados. Isso pode ser feito utilizando a função ‘summary()’ do próprio pacote <strong>base</strong> do software R. A função requer um vetor com os valores que se deseja sumarizar. A expreseção inserida como argumento na função se refere apenas aos dados de incidência da coluna <em>inc</em> do banco de dados <em>cr</em>. Como resultado é retornado os valores de mínimo, 1° quartil, mediana, média, 3° quartil e máximo. Veja:</p>
+<h2 class="anchored" data-anchor-id="utilizando-a-função-summary">Utilizando a função <code>summary()</code></h2>
+<p>Uma outra maneira complementar à exploração dos dados é por meio da sumarização dos dados. Isso pode ser feito utilizando a função ‘<code>summary()</code>’ do próprio pacote <strong>base</strong> do software R. A função requer um vetor com os valores que se deseja sumarizar. A expressão inserida como argumento na função se refere apenas aos dados de incidência da coluna <em>inc</em> do banco de dados <em>cr</em>. Como resultado é retornado os valores de mínimo, 1° quartil, mediana, média, 3° quartil e máximo. Veja:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cr<span class="sc">$</span>inc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -364,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="boxplot-por-região" class="level1">
 <h1>Boxplot por região</h1>
-<p>Uma outra maneira de visualizar, os dados de incidência, é por meio de criação de gráficos <em>Boxplot</em>. O gráfico gerado é um resumo da mediana, 1° e 3° qurtil, máximo e mínimo. O código abaixo cria <em>boxplot</em> distinguindo por região.</p>
+<p>Uma outra maneira de visualizar, os dados de incidência, é por meio de criação de gráficos <em>Boxplot</em>. O gráfico gerado é um resumo da mediana, 1° e 3° quartil, máximo e mínimo. O código abaixo cria <em>boxplot</em> distinguindo por região.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cr <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> inc)) <span class="sc">+</span></span>
@@ -424,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="relação-entre-severidade-e-incidência" class="level1">
 <h1>Relação entre severidade e incidência</h1>
-<p>Uma outra maneira de visualizar os dados, é por meio da plotagem de duas variáveis respostas como a severidade e incidencia num gráfico de pontos.</p>
+<p>Uma outra maneira de visualizar os dados, é por meio da plotagem de duas variáveis respostas como a severidade e incidência num gráfico de pontos.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cr <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> inc, <span class="at">y =</span> sev2)) <span class="sc">+</span> </span>
@@ -442,8 +439,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Observamos que há uma correlação positiva entre as duas variáveis, como já esperado para severidade e incidência.</p>
 </section>
-<section id="cria-subconjuntos" class="level1">
-<h1>Cria subconjuntos</h1>
+<section id="criar-subconjuntos" class="level1">
+<h1>Criar subconjuntos</h1>
 <p>As vezes, quando seu banco de dados é muito grande, pode-se seguir com a análise apenas com parte desses dados. Nesse caso, filtrando apenas os dados que serão utilizados nas etapas seguintes da análise. Isso pode ser feito através da criação de subconjuntos. Veja:</p>
 <p>Utiliza as funções ‘select( )’ e ‘filter( )’ do pacote <strong>dplyr</strong> para selecionar colunas e linhas, respectivamente.</p>
 <div class="cell">
@@ -472,9 +469,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # ℹ 155 more rows</code></pre>
 </div>
 </div>
-<p>Obs.: É importante chamar a atenção para seus dados originais. Quando esse processo é realizado, e o subconjunto é associado a um novo objeto, seu banco de dados original permanece intacto. Caso a associação do subconjunto seja feita sobre o nome do banco de dados original, este não mais se encontra-rá disponível no ambiente R para posteriores análises. No entanto, basta importar novamente seu baco de dados e estará tudo certo.</p>
-<section id="visualiza-os-subconjuntos" class="level2">
-<h2 class="anchored" data-anchor-id="visualiza-os-subconjuntos">Visualiza os subconjuntos</h2>
+<p>Obs.: É importante chamar a atenção para seus dados originais. Quando esse processo é realizado, e o subconjunto é associado a um novo objeto, seu banco de dados original permanece intacto. Caso a associação do subconjunto seja feita sobre o nome do banco de dados original, este não mais se encontra-rá disponível no ambiente R para posteriores análises. No entanto, basta importar novamente seu banco de dados e estará tudo certo.</p>
+<section id="visualizar-os-subconjuntos" class="level2">
+<h2 class="anchored" data-anchor-id="visualizar-os-subconjuntos">Visualizar os subconjuntos</h2>
 <p>Agora, segue-se a criação de gráficos para cada subconjunto gerado anteriormente.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> cr_oromia <span class="sc">|&gt;</span> </span>

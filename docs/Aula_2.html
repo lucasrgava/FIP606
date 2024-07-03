@@ -247,10 +247,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>O foco para esse documento é relatar a importância e como realizar a importação de dados. Como também, demonstrar uma breve explicação sobre importância e elaboração de gráficos e como salvá-los.</p>
+<p>O foco para esse documento é apresentar a importância e o procedimento de importação de dados. Além disso, demonstrar uma breve explicação sobre elaboração de gráficos e como salvá-los.</p>
 <section id="pacotes" class="level1">
 <h1>Pacotes</h1>
-<p>Carregamento dos pacotes necessários para execução dos códigos desse documento. O pacote ec50estimator, será utilizado para acessarmos seu banco de dados denominado “multi_isolate”. O pacote readxl, será utilizado para importação de dados a partir de arquivos “.xlsx”. o pacote tidyverse, será utilizado para auxiliar na manipulação de dados. Por último, o pacote gsheet, será utilizado para importar dados de planilhas onlines.</p>
+<p>Carregamento dos pacotes necessários para execução dos códigos desse documento. O pacote ec50estimator, será utilizado para acessarmos seu banco de dados denominado “multi_isolate”. O pacote readxl, será utilizado para importação de dados a partir de arquivos “.xlsx”. O pacote <strong>tidyverse</strong>, será utilizado para auxiliar na manipulação de dados. Por último, o pacote gsheet, será utilizado para importar dados de planilhas onlines.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ec50estimator)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
@@ -260,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="importação-de-dados" class="level1">
 <h1>Importação de dados</h1>
-<p>A importação de dados é uma etapa fundamental que precede a análise dos dados. Existem diversas maneiras para importar dados para o software RStudio. Por exemplo, os dados podem ser oriundos de pacotes (ex. ec50estimator), de planilhas (.xlsx), de arquivos de texto (.csv), diretamento de um arquivo da internet (planilhas onlines como as planilhas google) ou, não muito usual, criar objetos que carreguem os dados e montar um data frame.</p>
+<p>A importação de dados é uma etapa fundamental que precede a análise dos dados. Existem diversas maneiras para importar dados para o software RStudio. Por exemplo, os dados podem ser oriundos de pacotes (ex. ec50estimator), de planilhas (.xlsx), de arquivos de texto (.csv), diretamente de um arquivo da internet (planilhas onlines como as planilhas google) ou, não muito usual, criar objetos que carreguem os dados e montar um data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> multi_isolate <span class="co"># Banco de dados do pacote ec50estimator</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"dados-diversos.xlsx"</span>) <span class="co"># Pacote readxl</span></span>
@@ -271,8 +271,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="construindo-um-gráfico" class="level1">
 <h1>Construindo um gráfico</h1>
-<p>Os gráficos são fortes aliados das pessoas que trabalham com análise de dados. A visualização de dados por meio de gráficos consiste em um dos primeiros passos para a análise exploratória após a importação dos dados. Os dados em forma gráfica permite visualizar tendências ou padrãos mais facilmente o que auxilia o pesquisador a definir como seguir com sua abordagem exploratória, o que não seria uma fácil tarefa apenas observando os dados planilhados.</p>
-<p>Os dados são para construção do gráfico são de um ensaio com Delineamento Experiental Inteiramente Casualisado (DIC), com 2 tratamentos (Mg2 e Controle), 10 repetições e apenas uma variavel resposta (comp). Uma maneira de visualizar esses dados é por meio de grafico boxplot onde cada boxplot representa um tratamento. Por meio da gráfico conseguimos perceber que existe uma diferença entre os tratamentos, com valores de comp maiores para o tratamento controle do que o tratamento com Mg2. Por outra perspectiva, numericamente, o tratamento com Mg2 foi capaz de reduzir o valor da variável comp em relaçao ao controle.</p>
+<p>Os gráficos são fortes aliados das pessoas que trabalham com análise de dados. A visualização por meio de gráficos consiste em um dos primeiros passos para a análise exploratória após a importação. Os dados, em forma gráfica, permite visualizar tendências ou padrãos mais facilmente, o que auxilia o pesquisador a definir como seguir com sua abordagem exploratória. O que não seria uma fácil tarefa apenas observando os dados planilhados.</p>
+<p>Os dados para construção do gráfico são de um ensaio com Delineamento Experiental Inteiramente Casualisado (DIC), com 2 tratamentos (Mg2 e Controle), 10 repetições e apenas uma variável resposta (comp). Uma maneira de visualizar esses dados é por meio de gráfico boxplot onde cada um representa um tratamento. Por meio da gráfico conseguimos perceber que existe uma diferença entre os tratamentos, com valores de comp maiores para o tratamento controle do que o tratamento com Mg2. Por outra perspectiva, numericamente, o tratamento com Mg2 foi capaz de reduzir o valor da variável comp em relação ao controle.</p>
 <p>O código abaixo gera um gráfico boxplot:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">|&gt;</span> </span>
@@ -300,7 +300,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="salvando-o-gráfico" class="level1">
 <h1>Salvando o gráfico</h1>
-<p>Após a criação de alguma figura, as vezes é interessante salvá-la para usos posteriores. O pacote ggplot2 possui uma função destinada para isso, chama-se ggsave(). Com ela é possível salvar o gráfico gerado em um destino que pode ser especificado, assim como dimenções, resolução, formato de saída entre outras configurações que podem ser acessadas buscando ajuda (digite no console: ‘?ggsave’). Agora, retornando para salvar o gráfico gerado, na função ggsave(), determinamos o nome que queremos para a figura, assim como a cor de fundo espeificada pelo argumento ‘bg’. Ao executar o código a imagem é salva altomaticamente em seu diretório de trabalho.</p>
+<p>Após a criação de alguma figura, as vezes é interessante salvá-la para usos posteriores. O pacote ggplot2 possui uma função destinada para isso, chama-se <code>ggsave()</code>. Com ela é possível salvar o gráfico gerado em um destino que pode ser especificado, assim como dimenções, resolução, formato de saída entre outras configurações que podem ser acessadas buscando ajuda (digite no console: ‘<code>?ggsave</code>’). Agora, retornando para salvar o gráfico gerado, na função <code>ggsave()</code>, determinamos o nome que queremos para a figura, assim como a cor de fundo especificada pelo argumento ‘<code>bg =</code>’. Ao executar o código a imagem é salva altomaticamente em seu diretório de trabalho.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"imagens/plot1.png"</span>, <span class="at">bg =</span> <span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">

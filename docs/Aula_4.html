@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#importando-banco-de-dados" id="toc-importando-banco-de-dados" class="nav-link" data-scroll-target="#importando-banco-de-dados">Importando banco de dados</a>
   <ul class="collapse">
-  <li><a href="#colando-um-vector" id="toc-colando-um-vector" class="nav-link" data-scroll-target="#colando-um-vector">Colando um vector</a></li>
+  <li><a href="#colando-um-vetor" id="toc-colando-um-vetor" class="nav-link" data-scroll-target="#colando-um-vetor">Colando um vetor</a></li>
   <li><a href="#colando-um-dataframe" id="toc-colando-um-dataframe" class="nav-link" data-scroll-target="#colando-um-dataframe">Colando um dataframe</a></li>
   <li><a href="#a-tibble" id="toc-a-tibble" class="nav-link" data-scroll-target="#a-tibble">A tibble</a></li>
   </ul></li>
@@ -268,25 +268,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="instalando-pacotes-de-outros-repositórios" class="level1">
 <h1>Instalando pacotes de outros repositórios</h1>
-<p>As vezes é preciso carregar pacotes que não estão disponíveis no repóritório CRAN e utilizando a função “install.packages()” não será possível instalá-los. Para resolver isso, pode-se fazar uso de outro instalador como se segue:</p>
+<p>As vezes é preciso carregar pacotes que não estão disponíveis no repósitório CRAN e utilizando a função “<code>install.packages()</code>” não será possível instalá-los. Para resolver isso, pode-se fazer uso de outro instalador como se segue:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages('pak') # pacote utilizador para instalar pacotes de outros repositórios</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pak::pkg_install('Icens')</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#pak::pkg_install('emdelponte/r4pde')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Primeiramente, instala-se o pacote <strong>pak</strong> utilizando a função “install.packages()”. Em seguida, com a função “pkg_install()”, instala-se pacotes de outros repositórios, a exemplo, do GitHub.</p>
+<p>Primeiramente, instala-se o pacote <strong>pak</strong> utilizando a função “<code>install.packages()</code>”. Em seguida, com a função “<code>pkg_install()</code>”, instala-se pacotes de outros repositórios, a exemplo, do GitHub.</p>
 </section>
 <section id="colagem-de-dados" class="level1">
 <h1>Colagem de dados</h1>
-<p>Outra ferramente muito útil para lidar com colagem de dados diretamente no código, é instalando o pacote <strong>datapasta</strong>. Esse pacote oferece funcionalidades para colagem de dados de forma organizada junto ao código. Após a instalação, as funcionalidades do pacote ficam disponíves no canto superior da janela com um botão <em>Addins</em>. Clicando nele, há diversas formas de colagem de dados. Mais informações <a href="https://cran.r-project.org/web/packages/datapasta/vignettes/how-to-datapasta.html">aqui</a>.</p>
+<p>Outra ferramenta muito útil para lidar com colagem de dados diretamente no código, é instalando o pacote <strong>datapasta</strong>. Esse pacote oferece funcionalidades para colagem de dados de forma organizada junto ao código. Após a instalação, as funcionalidades do pacote ficam disponíveis no canto superior da janela com um botão <em>Addins</em>. Clicando nele, há diversas formas de colagem de dados. Mais informações <a href="https://cran.r-project.org/web/packages/datapasta/vignettes/how-to-datapasta.html">aqui</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages('datapasta') # pacote instalado para colagem de dados copiados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="importando-banco-de-dados" class="level2">
 <h2 class="anchored" data-anchor-id="importando-banco-de-dados">Importando banco de dados</h2>
-<section id="colando-um-vector" class="level3">
-<h3 class="anchored" data-anchor-id="colando-um-vector">Colando um vector</h3>
-<p>Selecione o conjunto de dados que se deseja colar, clique na opção <em>Addins</em>, na seção DATAPASTA clique em <em>paste as vactor</em>. Altomaticamente seus dados serão colados dentro da função concatenar (“c()”). Caso queira que a colagem seja dos dados seja na vertical, há a opção <em>paste as vector (vertical)</em>.</p>
+<section id="colando-um-vetor" class="level3">
+<h3 class="anchored" data-anchor-id="colando-um-vetor">Colando um vetor</h3>
+<p>Selecione o conjunto de dados que se deseja colar, clique na opção <em>Addins</em>, na seção DATAPASTA clique em <em>paste as vactor</em>. Automaticamente, seus dados serão colados dentro da função concatenar (“<code>c()</code>”). Caso queira que a colagem dos dados seja na vertical, há a opção <em>paste as vector (vertical)</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>comp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">125</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">132</span>, <span class="dv">11</span>, <span class="dv">108</span>, <span class="dv">95</span>, <span class="dv">108</span>, <span class="dv">104</span>, <span class="dv">1372</span>, <span class="dv">1591</span>, <span class="dv">157</span>, <span class="dv">142</span>, <span class="dv">159</span>, <span class="dv">1654</span>, <span class="dv">18</span>, <span class="dv">144</span>, <span class="dv">1641</span>, <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -313,7 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="a-tibble" class="level3">
 <h3 class="anchored" data-anchor-id="a-tibble">A tibble</h3>
-<p>É como um data frame com algumas funcionalidades a mais. Por exemplo, elas não mudam automaticamente os dados das colulas de strings para fatores. Elas podem conter culunas mais complexas como culunas de listas. Uma impressão dos dados que não sobrecarrega o console. Para colagem desse tipo de dados, semelhante ao passo anterior, procute em <em>Addins</em> a opção referente a colagem de tibble.</p>
+<p>É como um data frame com algumas funcionalidades a mais. Por exemplo, elas não mudam automaticamente os dados das colulas de strings para fatores. Elas podem conter culunas mais complexas como colunas de listas. Uma impressão dos dados que não sobrecarrega o console. Para colagem desse tipo de dados, semelhante ao passo anterior, procure em <em>Addins</em> a opção referente a colagem de tibble.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dat2 <span class="ot">&lt;-</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
@@ -393,7 +393,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">49</span>, <span class="fl">0.999</span>, <span class="fl">0.999</span>,  <span class="fl">0.74</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Transformando o dataframe ‘pepper’ do formato largo para o formato longo utilizando a função ‘pivot_longer()’ e criando um gráfico com <strong>ggplot2</strong> e criando anotações.</p>
+<p>Transformando o dataframe ‘pepper’ do formato largo para o formato longo utilizando a função <code>pivot_longer()</code> e criando um gráfico com <strong>ggplot2</strong> e criando anotações.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pepper <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">names_to =</span> <span class="st">'epidemic'</span>, </span>
@@ -422,7 +422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Observe que cada uma das curvas está sendo identificada, além da cor, por um número. A inserção desses números foi feita utilizando a função “annotate()” do <strong>ggplot2</strong>. Como se pode obeservar no código, a função requer o preenchimento de alguns argumentos basícos, como posição do texto nos eixos x e y e o texto a ser inserido. Lembrando que no argumento “label =” a informação a ser apresentada no gráfico deve ser digitado entre áspas simples ou duplas (isso é um indicativo de caracter).</p>
+<p>Observe que cada uma das curvas está sendo identificada, além da cor, por um número. A inserção desses números foi feita utilizando a função <code>annotate()</code> do <strong>ggplot2</strong>. Como se pode obeservar no código, a função requer o preenchimento de alguns argumentos basícos, como posição do texto nos eixos x e y e o texto a ser inserido. Lembrando que no argumento “label =” a informação a ser apresentada no gráfico deve ser digitado entre áspas simples ou duplas (isso é um indicativo de caracter).</p>
 </section>
 </section>
 </section>

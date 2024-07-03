@@ -8,31 +8,31 @@ editor: visual
 
 Antes de começarmos a desenvolver códigos com foco em análise de dados, vamos iniciar criando um projeto, em R, para que nossos arquivos fiquem salvos e organizados. Para isso, após a instalação dos Softwares **R** e RStudio, abra o **RStudio** e siga os passos:
 
-## 1° passo
+## 1° passo:
 
 Conforme a figura, clique no botão "Create a project":
 
 ![Fonte: O autor.](Prints/criando%20um%20projeto.png){fig-align="center" width="200"}
 
-## 2° passo
+## 2° passo:
 
 Na janela que se abrir, clique na opção "New Directory":
 
 ![Fonte: O autor.](Prints/Imagem4.png){fig-align="center" width="400"}
 
-## 3° passo
+## 3° passo:
 
 Na nova janela clique em "New Project"
 
 ![Fonte: O autor.](Prints/Imagem5.png){fig-align="center" width="400"}
 
-## 4° passo
+## 4° passo:
 
 Defina o diretório e clique em 'Creat Project". Pronto! Seu diretório foi criado. Agora, toda vez que for desenvolver algum código, de um trabalho espefico, salve nesta pasta.
 
 ![Fonte: O autor.](Prints/Imagem6.png){fig-align="center" width="400"}
 
-## 5° passo
+## 5° passo:
 
 Agora, vá ao diretório que salvou o projeto e clique no arquivo ".Rproj". Faça isso toda vez que for trabalhar nele. Ao clicar no arquivo do projeto, o ambiente do RStudio será aberto, clique em "New File" \> "Quarto Document". Defina título e autor e clique em "Create".
 
@@ -42,7 +42,7 @@ Você acabou de criar um arquivo .qmd e em sua janela terá algo assim:
 
 ![Fonte: O autor.](Prints/Imagem1.png){fig-align="center" width="664"}
 
-Como se pode perceber, esse tipo de arquivo permite alternar entre escrita e comandos. Essas caixas de comando são chamadas de **chuncks** e são nelas que inserimos os códigos de interesse. Para criar um novo código, use o atalho **ctrl + alt + i**.
+Como se pode perceber, esse tipo de arquivo permite alternar entre escrita e comandos. Essas caixas de comando são chamadas de **chunks** e são nelas que inserimos os códigos de interesse. Para criar um novo **chunk**, use o atalho **ctrl + alt + i**.
 
 # Operações matemáticas
 
@@ -63,7 +63,7 @@ Observe o resultado das operações. Isso é um exemplo simples e operações ma
 
 ## Vetores
 
-Até então, o que foi apresentado, de operações matemáticas, uma calculadora simples faz. Vamos agora criar abjetos, como vetores e data.frames.
+Até então, o que foi apresentado, de operações matemáticas, uma calculadora simples faz. Vamos agora criar objetos, como vetores e data.frames.
 
 ```{r}
 a <- 2
